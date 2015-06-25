@@ -19,7 +19,32 @@ namespace BookingRequestsProcessor
 
         static void Main(string[] args)
         {
-            ProcessBookingRequests();
+            WatchBookingRequestsFolder();
+            Console.WriteLine("Press any key to terminate the application...");
+            Console.Read();
+        }
+
+        private static void WatchBookingRequestsFolder()
+        {
+            var watcher = new FileSystemWatcher();
+            watcher.Path = FTP_REQUESTS;
+            watcher.NotifyFilter = NotifyFilters.Size;//.LastWrite;
+            watcher.Filter = "*.*";
+            watcher.Changed += new FileSystemEventHandler(OnBookingRequest);
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private static void OnBookingRequest(object sender, FileSystemEventArgs e)
+        {
+            var fileName = e.Name.Replace(".csv", string.Empty).Replace(".md5", string.Empty);
+
+            if (File.Exists(string.Format("{0}\\{1}.csv", FTP_REQUESTS, fileName)) 
+                && File.Exists(string.Format("{0}\\{1}.md5", FTP_REQUESTS, fileName)))
+            {
+                Console.WriteLine(string.Format("Process {0}", fileName));
+                ProcessBookingRequests();
+            }
+            
         }
 
         static void ProcessBookingRequests()
