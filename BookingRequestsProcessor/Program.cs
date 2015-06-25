@@ -1,4 +1,5 @@
-﻿using BookingRequestsProcessor.Models;
+﻿using BookingRequestsProcessor.Enums;
+using BookingRequestsProcessor.Models;
 using FileHelpers;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,6 @@ using System.Threading.Tasks;
 
 namespace BookingRequestsProcessor
 {
-    public enum BookingRequestFileExtension
-    { 
-        Csv,
-        Md5
-    }
-
     class Program
     {
         const string FTP_REQUESTS = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Requests";
@@ -34,7 +29,7 @@ namespace BookingRequestsProcessor
         {
             var watcher = new FileSystemWatcher();
             watcher.Path = FTP_REQUESTS;
-            watcher.NotifyFilter = NotifyFilters.Size;//.LastWrite;
+            watcher.NotifyFilter = NotifyFilters.Size;
             watcher.Filter = "*.*";
             watcher.Changed += new FileSystemEventHandler(OnBookingRequest);
             watcher.EnableRaisingEvents = true;
@@ -44,8 +39,8 @@ namespace BookingRequestsProcessor
         {
             var fileName = e.Name.Replace(".csv", string.Empty).Replace(".md5", string.Empty);
 
-            if (File.Exists(string.Format("{0}\\{1}.csv", FTP_REQUESTS, fileName)) 
-                && File.Exists(string.Format("{0}\\{1}.md5", FTP_REQUESTS, fileName)))
+            if (File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv))
+                && File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5)))
             {
                 Console.WriteLine(string.Format("Process {0}", fileName));
                 ProcessBookingRequests(fileName);
