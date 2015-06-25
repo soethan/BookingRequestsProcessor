@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingRequestsProcessor
 {
+    public enum BookingRequestFileExtension
+    { 
+        Csv,
+        Md5
+    }
+
     class Program
     {
         const string FTP_REQUESTS = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Requests";
@@ -42,33 +48,34 @@ namespace BookingRequestsProcessor
                 && File.Exists(string.Format("{0}\\{1}.md5", FTP_REQUESTS, fileName)))
             {
                 Console.WriteLine(string.Format("Process {0}", fileName));
-                ProcessBookingRequests();
+                ProcessBookingRequests(fileName);
             }
             
         }
 
-        static void ProcessBookingRequests()
+        static void ProcessBookingRequests(string fileName)
         {
-            
-            foreach (var fileName in Directory.GetFiles(FTP_REQUESTS, "*.csv"))
+            if (!IsFileCorrupted(fileName))
             {
-                if (!IsFileCorrupted(fileName))
-                {
-                    ProcessFile(fileName);
-                }
-                else
-                {
-                    var requestFileName = Path.GetFileName(fileName);
-                    File.Move(fileName, string.Format("{0}\\{1}", FTP_CORRUPTED, requestFileName));
-                    File.Move(fileName.Replace(".csv", ".md5"), string.Format("{0}\\{1}", FTP_CORRUPTED, requestFileName.Replace(".csv", ".md5")));
-                }
+                ProcessFile(fileName);
             }
+            else
+            {
+                File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv), GetFullFileName(FTP_CORRUPTED, fileName, BookingRequestFileExtension.Csv));
+                File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5), GetFullFileName(FTP_CORRUPTED, fileName, BookingRequestFileExtension.Md5));
+            }
+        }
+
+        private static string GetFullFileName(string folderPath, string fileName, BookingRequestFileExtension fileExtension)
+        {
+            return string.Format("{0}\\{1}.{2}", folderPath, fileName, fileExtension == BookingRequestFileExtension.Md5 ? "md5" : "csv");
         }
 
         private static bool IsFileCorrupted(string fileName)
         {
-            var md5HashOfMD5 = File.ReadAllBytes(fileName.Replace(".csv", ".md5"));
-            var md5HashOfCsv = GetMD5Hash(fileName);
+            var md5HashOfMD5 = File.ReadAllBytes(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5));
+            var md5HashOfCsv = GetMD5Hash(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv));
+
             if (md5HashOfCsv.SequenceEqual(md5HashOfMD5))
             {
                 return false;
@@ -82,7 +89,7 @@ namespace BookingRequestsProcessor
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
 
-            var bookingRequests = (BookingRequest[])engine.ReadFile(fileName);
+            var bookingRequests = (BookingRequest[])engine.ReadFile(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv));
 
             if (engine.ErrorManager.Errors.Length > 0) {
                 ProcessErrorRecords(engine, bookingRequests.Length, fileName);
@@ -91,8 +98,8 @@ namespace BookingRequestsProcessor
             ProcessCorrectRecords(bookingRequests);
             var requestFileName = Path.GetFileName(fileName);
 
-            File.Move(fileName, string.Format("{0}\\{1}", FTP_READ, requestFileName));
-            File.Move(fileName.Replace(".csv", ".md5"), string.Format("{0}\\{1}", FTP_READ, requestFileName.Replace(".csv", ".md5")));
+            File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv), GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Csv));
+            File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5), GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Md5));
         }
 
         private static void ProcessCorrectRecords(BookingRequest[] bookingRequests)
@@ -117,8 +124,7 @@ namespace BookingRequestsProcessor
             }
             sbErrors.Append("\"EOF\"");
 
-            var requestFileName = Path.GetFileName(fileName);
-            File.WriteAllText(string.Format("{0}\\{1}", FTP_RESPONSE, requestFileName.Replace("booking-request", "booking-response")), sbErrors.ToString());
+            File.WriteAllText(GetFullFileName(FTP_RESPONSE, fileName.Replace("booking-request", "booking-response"), BookingRequestFileExtension.Csv), sbErrors.ToString());
         }
 
         private static byte[] GetMD5Hash(string fileName)
