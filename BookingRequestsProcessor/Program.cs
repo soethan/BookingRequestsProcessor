@@ -50,7 +50,7 @@ namespace BookingRequestsProcessor
 
         static void ProcessBookingRequests(string fileName)
         {
-            if (!IsFileCorrupted(fileName))
+            if (!IsFileLocked(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv)) && !IsFileCorrupted(fileName))
             {
                 ProcessFile(fileName);
             }
@@ -78,13 +78,42 @@ namespace BookingRequestsProcessor
             return true;
         }
 
+        private static bool IsFileLocked(string fileName)
+        {
+            FileStream stream = null;
+            
+            try
+            {
+                var file = new FileInfo(fileName);
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException ex)
+            {
+                //the file is unavailable because it is:
+                //1. still being written to
+                //2. or being processed by another thread
+                //3. or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+            return false;
+        }
+
         static void ProcessFile(string fileName)
         {
+            var csvFile = GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv);
+
             var engine = new FileHelperEngine(typeof(BookingRequest));
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
 
-            var bookingRequests = (BookingRequest[])engine.ReadFile(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv));
+            var bookingRequests = (BookingRequest[])engine.ReadFile(csvFile);
 
             if (engine.ErrorManager.Errors.Length > 0) {
                 ProcessErrorRecords(engine, bookingRequests.Length, fileName);
@@ -93,7 +122,7 @@ namespace BookingRequestsProcessor
             ProcessCorrectRecords(bookingRequests);
             var requestFileName = Path.GetFileName(fileName);
 
-            File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv), GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Csv));
+            File.Move(csvFile, GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Csv));
             File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5), GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Md5));
         }
 
