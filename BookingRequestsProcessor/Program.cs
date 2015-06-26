@@ -1,5 +1,7 @@
-﻿using BookingRequestsProcessor.Enums;
+﻿using AutoMapper;
+using BookingRequestsProcessor.Enums;
 using BookingRequestsProcessor.Models;
+using DataAccessLayer;
 using FileHelpers;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,8 @@ namespace BookingRequestsProcessor
 
         static void Main(string[] args)
         {
+            Mapper.CreateMap<BookingRequest, DataAccessLayer.Models.BookingRequest>();
+
             WatchBookingRequestsFolder();
             Console.WriteLine("Press any key to terminate the application...");
             Console.Read();
@@ -136,10 +140,18 @@ namespace BookingRequestsProcessor
 
         private static void ProcessCorrectRecords(List<BookingRequest> bookingRequests)
         {
+            var dbContext = new BookingRequestsDbContext();
+
             foreach (BookingRequest req in bookingRequests)
             {
-                //TODO: Save record to BookingRequestsDB
-                Console.WriteLine(string.Format("SNo={0},RecipientFirstName={1},RecipientLastName={2}", req.SerialNo, req.RecipientFirstName, req.RecipientLastName));
+                var bookingRequestEntity = new DataAccessLayer.Models.BookingRequest();
+                Mapper.Map<BookingRequest, DataAccessLayer.Models.BookingRequest>(req, bookingRequestEntity);
+                bookingRequestEntity.Status = "Pending";
+                dbContext.BookingRequests.Add(bookingRequestEntity);
+            }
+            if (bookingRequests.Count > 0)
+            {
+                dbContext.SaveChanges();
             }
         }
 

@@ -42,7 +42,7 @@ namespace BookingRequestsProcessor.Models
         public decimal SendToLatitue;
         public decimal SendToLongitute;
 
-        public string Remarks { get; set; }
+        public string Remarks;
 
     }
 }
