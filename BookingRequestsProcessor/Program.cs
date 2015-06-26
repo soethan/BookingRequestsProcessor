@@ -39,8 +39,8 @@ namespace BookingRequestsProcessor
         {
             var fileName = e.Name.Replace(".csv", string.Empty).Replace(".md5", string.Empty);
 
-            if (File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv))
-                && File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5)))
+            if (File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv)) && 
+                File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5)))
             {
                 Console.WriteLine(string.Format("Process {0}", fileName));
                 ProcessBookingRequests(fileName);
@@ -48,11 +48,11 @@ namespace BookingRequestsProcessor
             
         }
 
-        static void ProcessBookingRequests(string fileName)
+        static async void ProcessBookingRequests(string fileName)
         {
             if (!IsFileLocked(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv)) && !IsFileCorrupted(fileName))
             {
-                ProcessFile(fileName);
+                await Task.Run(() => ProcessFileAsync(fileName));
             }
             else
             {
@@ -105,19 +105,27 @@ namespace BookingRequestsProcessor
             return false;
         }
 
-        static void ProcessFile(string fileName)
+        static void ProcessFileAsync(string fileName)
         {
+            Console.WriteLine(string.Format("ProcessFileAsync {0}", fileName));
             var csvFile = GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv);
 
-            var engine = new FileHelperEngine(typeof(BookingRequest));
+            var engine = new FileHelperAsyncEngine(typeof(BookingRequest));
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
 
-            var bookingRequests = (BookingRequest[])engine.ReadFile(csvFile);
+            engine.BeginReadFile(csvFile);
+            var bookingRequests = new List<BookingRequest>();
+            while (engine.ReadNext() != null)
+            {
+                var record = (BookingRequest)engine.LastRecord;
+                bookingRequests.Add(record);
+            }
 
             if (engine.ErrorManager.Errors.Length > 0) {
-                ProcessErrorRecords(engine, bookingRequests.Length, fileName);
+                ProcessErrorRecords(engine, bookingRequests.Count, fileName);
             }
+            engine.Close();
 
             ProcessCorrectRecords(bookingRequests);
             var requestFileName = Path.GetFileName(fileName);
@@ -126,7 +134,7 @@ namespace BookingRequestsProcessor
             File.Move(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5), GetFullFileName(FTP_READ, fileName, BookingRequestFileExtension.Md5));
         }
 
-        private static void ProcessCorrectRecords(BookingRequest[] bookingRequests)
+        private static void ProcessCorrectRecords(List<BookingRequest> bookingRequests)
         {
             foreach (BookingRequest req in bookingRequests)
             {
@@ -135,7 +143,7 @@ namespace BookingRequestsProcessor
             }
         }
 
-        private static void ProcessErrorRecords(FileHelperEngine engine, int numberOfGoodEntries, string fileName)
+        private static void ProcessErrorRecords(FileHelperAsyncEngine engine, int numberOfGoodEntries, string fileName)
         {
             var sbErrors = new StringBuilder();
             sbErrors.AppendLine(string.Format("Number of good entries: {0}", numberOfGoodEntries));
