@@ -8,12 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccessLayer;
 using DataAccessLayer.Models;
+using BackOfficeWeb.Models;
+using AutoMapper;
 
 namespace BackOfficeWeb.Controllers
 {
     public class BookingRequestController : Controller
     {
         private BookingRequestsDbContext db = new BookingRequestsDbContext();
+
+        public BookingRequestController()
+        {
+            Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
+        }
 
         // GET: BookingRequest
         public ActionResult Index()
@@ -33,7 +40,9 @@ namespace BackOfficeWeb.Controllers
             {
                 return HttpNotFound();
             }
-            return View(bookingRequest);
+            var viewModel = new UpdateStatusViewModel();
+            Mapper.Map<BookingRequest, UpdateStatusViewModel>(bookingRequest, viewModel);
+            return View(viewModel);
         }
 
         // GET: BookingRequest/Create
@@ -88,6 +97,17 @@ namespace BackOfficeWeb.Controllers
                 return RedirectToAction("Index");
             }
             return View(bookingRequest);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateStatus(UpdateStatusViewModel model)
+        {
+            var bookingRequest = db.BookingRequests.Where(b => b.RequestNumber == model.RequestNumber).FirstOrDefault();
+            bookingRequest.Status = model.Status;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: BookingRequest/Delete/5
