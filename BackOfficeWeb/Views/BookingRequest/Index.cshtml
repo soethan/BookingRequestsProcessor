@@ -34,72 +34,6 @@
             @Html.DisplayNameFor(model => model.RequestorEmail)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PickUpAddress1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAddress2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAddressCity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAddressProvince)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAddressPostal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAddressCountry)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpLatitue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpLongitute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipientFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipientLastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipientMobilePhoneNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipientDeskPhoneNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipientEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddress1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddress2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddressCity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddressProvince)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddressPostal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToAddressCountry)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToLatitue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SendToLongitute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th></th>
@@ -129,78 +63,11 @@
             @Html.DisplayFor(modelItem => item.RequestorEmail)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddress1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddress2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddressCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddressProvince)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddressPostal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAddressCountry)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpLatitue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpLongitute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientMobilePhoneNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientDeskPhoneNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddress1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddress2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddressCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddressProvince)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddressPostal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToAddressCountry)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToLatitue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendToLongitute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RequestNumber }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RequestNumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RequestNumber })
+            @Html.ActionLink("Details", "Details", new { id = item.RequestNumber })
+            
         </td>
     </tr>
 }

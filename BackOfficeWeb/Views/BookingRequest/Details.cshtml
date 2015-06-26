@@ -5,255 +5,251 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>BookingRequest Details</h2>
 
-<div>
-    <h4>BookingRequest</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SerialNo)
-        </dt>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SerialNo)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SerialNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorId)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorFirstName)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorFirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorLastName)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorLastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorMobilePhoneNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorDeskPhoneNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RequestorEmail)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RequestorEmail)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddress1)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddress1)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddress2)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddress2)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddressCity)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddressCity)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddressProvince)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddressProvince)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddressPostal)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddressPostal)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpAddressCountry)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpAddressCountry)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpLatitue)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpLatitue)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.PickUpLongitute)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickUpLongitute)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RecipientFirstName)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RecipientFirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RecipientLastName)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RecipientLastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RecipientMobilePhoneNo)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RecipientMobilePhoneNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RecipientDeskPhoneNo)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RecipientDeskPhoneNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.RecipientEmail)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.RecipientEmail)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddress1)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddress1)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddress2)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddress2)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddressCity)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddressCity)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddressProvince)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddressProvince)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddressPostal)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddressPostal)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToAddressCountry)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToAddressCountry)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToLatitue)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToLatitue)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.SendToLongitute)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SendToLongitute)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Remarks)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Remarks)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Status)
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SerialNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorFirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorFirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorLastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorLastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorMobilePhoneNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorDeskPhoneNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequestorEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequestorEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddress1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddress1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddress2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddress2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddressCity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddressCity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddressProvince)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddressProvince)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddressPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddressPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpAddressCountry)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpAddressCountry)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpLatitue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpLatitue)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PickUpLongitute)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PickUpLongitute)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipientFirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RecipientFirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipientLastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RecipientLastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipientMobilePhoneNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RecipientMobilePhoneNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipientDeskPhoneNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RecipientDeskPhoneNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipientEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RecipientEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddress1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddress1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddress2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddress2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddressCity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddressCity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddressProvince)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddressProvince)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddressPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddressPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToAddressCountry)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToAddressCountry)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToLatitue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToLatitue)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SendToLongitute)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SendToLongitute)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestNumber }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Back to Booking Requests", "Index")
+    </p>
