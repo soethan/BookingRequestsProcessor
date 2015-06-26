@@ -17,7 +17,7 @@ namespace DataAccessLayer
 
         }
 
-        public DbSet<BookingRequest> BookingRequests { get; set; }
+        public IDbSet<BookingRequest> BookingRequests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
