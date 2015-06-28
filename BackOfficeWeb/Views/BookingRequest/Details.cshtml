@@ -247,16 +247,27 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <div class="col-md-2">
-                        @Html.DisplayNameFor(model => model.Status)
+                        Request Type
                     </div>
                     <div class="col-md-10">
-
-                        @Html.DropDownListFor(model => model.Status, new List<SelectListItem> {
-                                                                            new SelectListItem { Text = "Please select new status", Value = "" },
-                                                                            new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
-                                                                            new SelectListItem { Text = "Enquiry", Value = "Enquiry" } }, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownListFor(model => model.Status, 
+                                                new List<SelectListItem> {
+                                                    new SelectListItem { Text = "Please select new status", Value = "" },
+                                                    new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
+                                                    new SelectListItem { Text = "Enquiry", Value = "Enquiry" } }, 
+                                                    new { id = "ddlStatus", htmlAttributes = new { @class = "form-control" } })
+                        
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" id="divReplyMessage" style="display:none">
+                    <div class="col-md-2">
+                        Reply Message
+                    </div>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.ReplyMessage, new { id = "txtReplyMessage", style="display:none" })
+                        @*<textarea id="txtReplyMessage" name="txtReplyMessage" style="display:none"></textarea>*@
                     </div>
                 </div>
                 <div class="form-group">
@@ -287,4 +298,17 @@
     </p>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            $("#ddlStatus").change(function () {
+                if ($(this).val() == "Enquiry") {
+                    $("#divReplyMessage,#txtReplyMessage").show();
+                }
+                else {
+                    $("#divReplyMessage,#txtReplyMessage").hide();
+                }
+            });
+        });
+    </script>
 }

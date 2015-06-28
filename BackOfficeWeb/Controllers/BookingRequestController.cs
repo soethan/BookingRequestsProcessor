@@ -10,15 +10,20 @@ using DataAccessLayer;
 using DataAccessLayer.Models;
 using BackOfficeWeb.Models;
 using AutoMapper;
+using NotificationServices.Interfaces;
+using System.Text;
 
 namespace BackOfficeWeb.Controllers
 {
+    [Authorize]
     public class BookingRequestController : Controller
     {
         private BookingRequestsDbContext db = new BookingRequestsDbContext();
+        private readonly IEmailNotification _emailNotification;
 
-        public BookingRequestController()
+        public BookingRequestController(IEmailNotification emailNotification)
         {
+            _emailNotification = emailNotification;
             Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
         }
 
@@ -107,6 +112,19 @@ namespace BackOfficeWeb.Controllers
             bookingRequest.Status = model.Status;
             db.SaveChanges();
 
+            //TODO: call API to update BookingRequests DB. and a new booking in Main DB
+            if(bookingRequest.Status == "Confirmed")
+            {
+                var content = new StringBuilder();
+                content.Append(string.Format("RequestNumber:{0}<br/>", bookingRequest.RequestNumber));
+                content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince));
+                
+                _emailNotification.Send("no-reply@alpha.com", new List<string>{"delivery-office@alpha.com"}, "Parcel Pickup", content.ToString());
+            }
+            else if (bookingRequest.Status == "Enquiry")
+            {
+                _emailNotification.Send("no-reply@alpha.com", new List<string> { bookingRequest.RequestorEmail }, "Enquiry", model.ReplyMessage);
+            }
             return RedirectToAction("Index");
         }
 

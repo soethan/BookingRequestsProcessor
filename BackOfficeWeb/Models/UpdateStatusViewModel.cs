@@ -45,5 +45,6 @@ namespace BackOfficeWeb.Models
         public string Remarks { get; set; }
         [Required]
         public string Status { get; set; }
+        public string ReplyMessage { get; set; }
     }
 }

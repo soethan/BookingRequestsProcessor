@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeWeb", "BackOfficeWeb\BackOfficeWeb.csproj", "{B0A9A944-F7AC-410F-9491-BAA30C751824}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationServices", "NotificationServices\NotificationServices.csproj", "{72ED212F-079E-4D4C-AEE1-380E959768BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B0A9A944-F7AC-410F-9491-BAA30C751824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0A9A944-F7AC-410F-9491-BAA30C751824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0A9A944-F7AC-410F-9491-BAA30C751824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72ED212F-079E-4D4C-AEE1-380E959768BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72ED212F-079E-4D4C-AEE1-380E959768BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72ED212F-079E-4D4C-AEE1-380E959768BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72ED212F-079E-4D4C-AEE1-380E959768BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
