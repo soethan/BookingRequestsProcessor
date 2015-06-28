@@ -36,7 +36,7 @@ namespace BookingWebApi
             );
 
             config.Routes.MapHttpRoute(
-                name: "Blog",
+                name: "BookingRequests",
                 routeTemplate: "api/bookingrequest/{requestNumber}",
                 defaults: new { controller = "BookingRequest", requestNumber = RouteParameter.Optional }
             );

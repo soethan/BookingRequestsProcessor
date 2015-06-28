@@ -35,8 +35,8 @@ namespace BookingWebApi.Controllers
                     .Take(Constants.PAGE_SIZE);
             return query.ToList();
         }
-
-        public HttpResponseMessage Get(string requestNumber)
+        
+        public HttpResponseMessage GetBookingRequest(string requestNumber)
         {
             var bookingRequest = _repository.GetBookingRequest(requestNumber);
             if (bookingRequest == null)
@@ -44,6 +44,14 @@ namespace BookingWebApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
             }
             return Request.CreateResponse(HttpStatusCode.OK, bookingRequest);
+        }
+        
+        public IEnumerable<BookingRequest> GetStatus(string status)
+        {
+            var query = _repository.GetAll()
+                        .Where(b => (string.IsNullOrEmpty(status) ? true : b.Status == status))
+                        .OrderBy(b => b.RequestNumber);
+            return query.ToList();
         }
 
         public HttpResponseMessage Put(string requestNumber, UpdateStatusModel model)
