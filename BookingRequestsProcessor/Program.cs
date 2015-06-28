@@ -2,6 +2,7 @@
 using BookingRequestsProcessor.Enums;
 using BookingRequestsProcessor.Models;
 using DataAccessLayer;
+using DataAccessLayer.Repositories;
 using FileHelpers;
 using System;
 using System.Collections.Generic;
@@ -140,18 +141,21 @@ namespace BookingRequestsProcessor
 
         private static void ProcessCorrectRecords(List<BookingRequest> bookingRequests)
         {
-            var dbContext = new BookingRequestsDbContext();
+            var repository = new BookingRequestRepository(new BookingRequestsDbContext());
 
             foreach (BookingRequest req in bookingRequests)
             {
                 var bookingRequestEntity = new DataAccessLayer.Models.BookingRequest();
                 Mapper.Map<BookingRequest, DataAccessLayer.Models.BookingRequest>(req, bookingRequestEntity);
                 bookingRequestEntity.Status = "Pending";
-                dbContext.BookingRequests.Add(bookingRequestEntity);
+                bookingRequestEntity.CreatedBy = "System";
+                bookingRequestEntity.CreatedDate = DateTimeOffset.UtcNow;
+                
+                repository.Create(bookingRequestEntity);
             }
             if (bookingRequests.Count > 0)
             {
-                dbContext.SaveChanges();
+                repository.SaveChanges();
             }
         }
 

@@ -12,6 +12,7 @@ using BackOfficeWeb.Models;
 using AutoMapper;
 using NotificationServices.Interfaces;
 using System.Text;
+using DataAccessLayer.Repositories;
 
 namespace BackOfficeWeb.Controllers
 {
@@ -20,10 +21,14 @@ namespace BackOfficeWeb.Controllers
     {
         private BookingRequestsDbContext db = new BookingRequestsDbContext();
         private readonly IEmailNotification _emailNotification;
+        IBookingRequestRepository _bookingRequestRepository;
+        IBookingMainRepository _mainRepository;
 
-        public BookingRequestController(IEmailNotification emailNotification)
+        public BookingRequestController(IEmailNotification emailNotification, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository)
         {
             _emailNotification = emailNotification;
+            _bookingRequestRepository = bookingRequestRepository;
+            _mainRepository = mainRepository;
             Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
         }
 
@@ -108,22 +113,28 @@ namespace BackOfficeWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UpdateStatus(UpdateStatusViewModel model)
         {
-            var bookingRequest = db.BookingRequests.Where(b => b.RequestNumber == model.RequestNumber).FirstOrDefault();
-            bookingRequest.Status = model.Status;
-            db.SaveChanges();
+            var confirmedBooking = _bookingRequestRepository.UpdateStatus(model.RequestNumber, model.Status, "updatedBy");//TODO: updatedBy
+            _bookingRequestRepository.SaveChanges();
 
-            //TODO: call API to update BookingRequests DB. and a new booking in Main DB
-            if(bookingRequest.Status == "Confirmed")
+            confirmedBooking.UpdatedBy = null;
+            confirmedBooking.UpdatedDate = null;
+            confirmedBooking.CreatedDate = DateTimeOffset.UtcNow;
+            confirmedBooking.CreatedBy = "createdBy";//TODO: created by
+            _mainRepository.Create(confirmedBooking);
+            _mainRepository.SaveChanges();
+
+            //TODO: refactor call API to update BookingRequests DB. 
+            if (confirmedBooking.Status == "Confirmed")
             {
                 var content = new StringBuilder();
-                content.Append(string.Format("RequestNumber:{0}<br/>", bookingRequest.RequestNumber));
-                content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince));
+                content.Append(string.Format("RequestNumber:{0}<br/>", model.RequestNumber));
+                content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", confirmedBooking.PickUpAddress1, confirmedBooking.PickUpAddress2, confirmedBooking.PickUpAddressCity, confirmedBooking.PickUpAddressCountry, confirmedBooking.PickUpAddressPostal, confirmedBooking.PickUpAddressProvince));
                 
                 _emailNotification.Send("no-reply@alpha.com", new List<string>{"delivery-office@alpha.com"}, "Parcel Pickup", content.ToString());
             }
-            else if (bookingRequest.Status == "Enquiry")
+            else if (confirmedBooking.Status == "Enquiry")
             {
-                _emailNotification.Send("no-reply@alpha.com", new List<string> { bookingRequest.RequestorEmail }, "Enquiry", model.ReplyMessage);
+                _emailNotification.Send("no-reply@alpha.com", new List<string> { confirmedBooking.RequestorEmail }, "Enquiry", model.ReplyMessage);
             }
             return RedirectToAction("Index");
         }

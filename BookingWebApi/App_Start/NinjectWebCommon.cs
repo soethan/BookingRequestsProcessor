@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BackOfficeWeb.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BackOfficeWeb.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BookingWebApi.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BookingWebApi.App_Start.NinjectWebCommon), "Stop")]
 
-namespace BackOfficeWeb.App_Start
+namespace BookingWebApi.App_Start
 {
     using System;
     using System.Web;
@@ -10,9 +10,8 @@ namespace BackOfficeWeb.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using NotificationServices;
-    using NotificationServices.Implementation;
-    using NotificationServices.Interfaces;
+    using System.Web.Http;
+    using WebApiContrib.IoC.Ninject;
     using DataAccessLayer.Repositories;
 
     public static class NinjectWebCommon 
@@ -49,6 +48,9 @@ namespace BackOfficeWeb.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                //To support Web API
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
+
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -65,9 +67,8 @@ namespace BackOfficeWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IEmailNotification>().To<EmailNotification>();
-            kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
+
         }        
     }
 }
