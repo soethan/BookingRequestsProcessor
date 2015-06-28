@@ -36,6 +36,16 @@ namespace BookingWebApi.Controllers
             return query.ToList();
         }
 
+        public HttpResponseMessage Get(string requestNumber)
+        {
+            var bookingRequest = _repository.GetBookingRequest(requestNumber);
+            if (bookingRequest == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, bookingRequest);
+        }
+
         public HttpResponseMessage Put(string requestNumber, UpdateStatusModel model)
         {
             if (_repository.GetBookingRequest(requestNumber) == null)
