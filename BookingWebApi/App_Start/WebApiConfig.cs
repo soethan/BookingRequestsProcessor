@@ -9,6 +9,7 @@ using System.Net.Http.Formatting;
 using BookingWebApi.Filters;
 using WebApiContrib.Formatting.Jsonp;
 using System.Web.Http.Cors;
+using log4net;
 
 namespace BookingWebApi
 {
@@ -21,7 +22,7 @@ namespace BookingWebApi
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            config.Filters.Add(new GlobalExceptionFilterAttribute());
+            config.Filters.Add(new GlobalExceptionFilterAttribute(LogManager.GetLogger(typeof(GlobalExceptionFilterAttribute))));
             
             //To support CORS Cross-Origin Resource Sharing, use below
             //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));

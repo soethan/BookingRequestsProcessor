@@ -14,6 +14,9 @@ namespace BookingWebApi.App_Start
     using WebApiContrib.IoC.Ninject;
     using DataAccessLayer.Repositories;
     using log4net;
+    using BookingWebApi.Filters;
+    using System.Web.Http.Filters;
+    using Ninject.Web.WebApi.FilterBindingSyntax;
 
     public static class NinjectWebCommon 
     {
@@ -70,6 +73,8 @@ namespace BookingWebApi.App_Start
         {
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
             kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
+            
+            kernel.BindHttpFilter<BookingApiAuthorizationFilterAttribute>(FilterScope.Global).WhenControllerHas<BookingApiAuthorizationFilterAttribute>();
         }        
     }
 }
