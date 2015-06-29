@@ -18,17 +18,19 @@ namespace BookingWebApi.Controllers
 {
     public class BookingRequestController : RestrictedApiController
     {
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private readonly ILog _log;
         private readonly IBookingRequestRepository _repository;
 
-        public BookingRequestController(IBookingRequestRepository repository)
+        public BookingRequestController(ILog log, IBookingRequestRepository repository)
         {
+            _log = log;
             _repository = repository;
         }
 
         public IEnumerable<BookingRequest> Get(int page = 0)
         {
+            _log.Info("Getting booking requests...");
+
             var query = _repository.GetAll()
                     .OrderBy(b => b.RequestNumber)
                     .Skip(Constants.PAGE_SIZE * page)

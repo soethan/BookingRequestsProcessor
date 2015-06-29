@@ -13,6 +13,7 @@ namespace BookingWebApi.App_Start
     using System.Web.Http;
     using WebApiContrib.IoC.Ninject;
     using DataAccessLayer.Repositories;
+    using log4net;
 
     public static class NinjectWebCommon 
     {
@@ -68,7 +69,7 @@ namespace BookingWebApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
-
+            kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
         }        
     }
 }
