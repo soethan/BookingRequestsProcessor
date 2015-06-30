@@ -7,6 +7,7 @@ using FileHelpers;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -17,10 +18,10 @@ namespace BookingRequestsProcessor
 {
     class Program
     {
-        const string FTP_REQUESTS = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Requests";
-        const string FTP_RESPONSE = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Response";
-        const string FTP_READ = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Read";
-        const string FTP_CORRUPTED = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Corrupted";
+        private static readonly string FTP_REQUESTS = ConfigurationManager.AppSettings["FTP_REQUESTS"];
+        private static readonly string FTP_RESPONSE = ConfigurationManager.AppSettings["FTP_RESPONSE"];
+        private static readonly string FTP_READ = ConfigurationManager.AppSettings["FTP_READ"];
+        private static readonly string FTP_CORRUPTED = ConfigurationManager.AppSettings["FTP_CORRUPTED"];
 
         private static readonly ILog _log = LogManager.GetLogger(typeof(BookingRequestsProcessor.Program));
 
