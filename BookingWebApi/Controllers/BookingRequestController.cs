@@ -29,8 +29,6 @@ namespace BookingWebApi.Controllers
 
         public IEnumerable<BookingRequest> Get(int page = 0)
         {
-            _log.Info("Getting booking requests...");
-
             var query = _repository.GetAll()
                     .OrderBy(b => b.RequestNumber)
                     .Skip(Constants.PAGE_SIZE * page)
@@ -56,6 +54,27 @@ namespace BookingWebApi.Controllers
             return query.ToList();
         }
 
+        public HttpResponseMessage GetStatistics()
+        { 
+            var numberOfBookings = _repository.GetAll()
+                        .Count(b => b.Status == "Confirmed");
+
+            var numberOfEnquiries = _repository.GetAll()
+                        .Count(b => b.Status == "Enquiry");
+
+            var percentageOfBookings = (numberOfBookings / (numberOfBookings + numberOfEnquiries)) * 100;
+            var percentageOfEnquiries = (numberOfEnquiries / (numberOfBookings + numberOfEnquiries)) * 100;
+
+            var statistics = new BookingStatisticsModel { 
+                NumberOfBookings = numberOfBookings,
+                PercentageOfBookings = percentageOfBookings,
+                NumberOfEnquiries = numberOfEnquiries,
+                PercentageOfEnquiries = percentageOfEnquiries
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, statistics);
+        }
+
         public HttpResponseMessage Put(string requestNumber, UpdateStatusModel model)
         {
             if (_repository.GetBookingRequest(requestNumber) == null)
@@ -64,6 +83,8 @@ namespace BookingWebApi.Controllers
             }
             _repository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
             _repository.SaveChanges();
+
+            _log.Info(string.Format("Request Number={0};Status={1};Updated by={2};", requestNumber, model.Status, model.UpdatedBy));
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

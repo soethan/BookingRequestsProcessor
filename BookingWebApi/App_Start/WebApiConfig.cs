@@ -38,8 +38,8 @@ namespace BookingWebApi
 
             config.Routes.MapHttpRoute(
                 name: "BookingRequests",
-                routeTemplate: "api/bookingrequest/{requestNumber}",
-                defaults: new { controller = "BookingRequest", requestNumber = RouteParameter.Optional }
+                routeTemplate: "api/bookingrequest/{action}/{requestNumber}",
+                defaults: new { controller = "BookingRequest", action = "Get", requestNumber = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
