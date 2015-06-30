@@ -72,6 +72,8 @@ namespace BookingWebApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
+            kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
+            kernel.Bind<ITransactionRepository>().To<TransactionRepository>();
             kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
             
             kernel.BindHttpFilter<BookingApiAuthorizationFilterAttribute>(FilterScope.Global).WhenControllerHas<BookingApiAuthorizationFilterAttribute>();

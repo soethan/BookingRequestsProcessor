@@ -11,22 +11,25 @@ using BookingWebApi.App_Start;
 using log4net;
 using System.Reflection;
 using BookingWebApi.Filters;
+using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DataAccessLayer.Models;
 
 namespace BookingWebApi.Controllers
 {
-    public class BookingRequestController : RestrictedApiController
+    public class BookingRequestController : ApiController
     {
         private readonly ILog _log;
         private readonly IBookingRequestRepository _bookingRequestRepository;
         private readonly IBookingMainRepository _mainRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
-        public BookingRequestController(ILog log, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository)
+        public BookingRequestController(ILog log, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, ITransactionRepository transactionRepository)
         {
             _log = log;
             _bookingRequestRepository = bookingRequestRepository;
             _mainRepository = mainRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public IEnumerable<BookingRequest> Get(int page = 0)
@@ -76,17 +79,33 @@ namespace BookingWebApi.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, statistics);
         }
-
-        public HttpResponseMessage Put(string requestNumber, UpdateStatusModel model)
+        [HttpPost]
+        public HttpResponseMessage UpdateStatus(string requestNumber, UpdateStatusModel model)
         {
             if (_bookingRequestRepository.GetBookingRequest(requestNumber) == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
             }
-            var confirmedBooking = _bookingRequestRepository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
-            _bookingRequestRepository.SaveChanges();
 
-            SaveConfirmedBooking(confirmedBooking, model.UpdatedBy);
+            if (model.Status == Constants.BOOKING_STATUS_CONFIRMED)
+            {
+                bool isSuccessful = _transactionRepository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
+                if (!isSuccessful)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+                //TODO: Send email notification
+            }
+            else
+            {
+                _bookingRequestRepository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
+                var result = _bookingRequestRepository.SaveChanges();
+                if (!result.Success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+                //TODO: Send email notification
+            }
 
             _log.Info(string.Format("Request Number={0};Status={1};Updated by={2};", requestNumber, model.Status, model.UpdatedBy));
 
@@ -104,14 +123,5 @@ namespace BookingWebApi.Controllers
             return list;
         }
 
-        private void SaveConfirmedBooking(BookingRequest confirmedBooking, string updatedBy)
-        {
-            confirmedBooking.UpdatedBy = null;
-            confirmedBooking.UpdatedDate = null;
-            confirmedBooking.CreatedDate = DateTimeOffset.UtcNow;
-            confirmedBooking.CreatedBy = updatedBy;
-            _mainRepository.Create(confirmedBooking);
-            _mainRepository.SaveChanges();
-        }
     }
 }
