@@ -57,10 +57,10 @@ namespace BookingWebApi.Controllers
         public HttpResponseMessage GetStatistics()
         { 
             var numberOfBookings = _repository.GetAll()
-                        .Count(b => b.Status == "Confirmed");
+                        .Count(b => b.Status == Constants.BOOKING_STATUS_CONFIRMED);
 
             var numberOfEnquiries = _repository.GetAll()
-                        .Count(b => b.Status == "Enquiry");
+                        .Count(b => b.Status == Constants.BOOKING_STATUS_ENQUIRY);
 
             var percentageOfBookings = (numberOfBookings / (numberOfBookings + numberOfEnquiries)) * 100;
             var percentageOfEnquiries = (numberOfEnquiries / (numberOfBookings + numberOfEnquiries)) * 100;
@@ -89,5 +89,15 @@ namespace BookingWebApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        public IEnumerable<BookingRequestKpiModel> GetBookingProcessKpi(int page = 0)
+        {
+            var list = _repository.GetAll()
+                    .Where(b => b.Status.Equals(Constants.BOOKING_STATUS_ENQUIRY) || b.Status.Equals(Constants.BOOKING_STATUS_CONFIRMED))
+                    .OrderBy(b => b.RequestNumber)
+                    .Skip(Constants.PAGE_SIZE * page)
+                    .Take(Constants.PAGE_SIZE)
+                    .Select(b => new BookingRequestKpiModel { RequestNumber = b.RequestNumber, CreatedDate = b.CreatedDate, AttendedDate = b.UpdatedDate.Value, AttendedBy = b.UpdatedBy }).ToList();
+            return list;
+        }
     }
 }
