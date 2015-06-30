@@ -4,6 +4,7 @@ using BookingRequestsProcessor.Models;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using FileHelpers;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,12 +22,16 @@ namespace BookingRequestsProcessor
         const string FTP_READ = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Read";
         const string FTP_CORRUPTED = @"D:\Personal\TestPrjs\BookingRequestsProcessor\BookingRequestsProcessor\Data\FTP_Corrupted";
 
+        private static readonly ILog _log = LogManager.GetLogger(typeof(BookingRequestsProcessor.Program));
+
         static void Main(string[] args)
         {
+            _log.Info("***Service Starts***");
             Mapper.CreateMap<BookingRequest, DataAccessLayer.Models.BookingRequest>();
 
             WatchBookingRequestsFolder();
             Console.WriteLine("Press any key to terminate the application...");
+            _log.Info("***Service Running***");
             Console.Read();
         }
 
@@ -47,7 +52,7 @@ namespace BookingRequestsProcessor
             if (File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv)) && 
                 File.Exists(GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Md5)))
             {
-                Console.WriteLine(string.Format("Process {0}", fileName));
+                _log.Info(string.Format("Process {0}", fileName));
                 ProcessBookingRequests(fileName);
             }
             
@@ -112,7 +117,7 @@ namespace BookingRequestsProcessor
 
         static void ProcessFileAsync(string fileName)
         {
-            Console.WriteLine(string.Format("ProcessFileAsync {0}", fileName));
+            _log.Info(string.Format("ProcessFileAsync {0}", fileName));
             var csvFile = GetFullFileName(FTP_REQUESTS, fileName, BookingRequestFileExtension.Csv);
 
             var engine = new FileHelperAsyncEngine(typeof(BookingRequest));
