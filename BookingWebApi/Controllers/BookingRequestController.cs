@@ -19,17 +19,19 @@ namespace BookingWebApi.Controllers
     public class BookingRequestController : RestrictedApiController
     {
         private readonly ILog _log;
-        private readonly IBookingRequestRepository _repository;
+        private readonly IBookingRequestRepository _bookingRequestRepository;
+        private readonly IBookingMainRepository _mainRepository;
 
-        public BookingRequestController(ILog log, IBookingRequestRepository repository)
+        public BookingRequestController(ILog log, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository)
         {
             _log = log;
-            _repository = repository;
+            _bookingRequestRepository = bookingRequestRepository;
+            _mainRepository = mainRepository;
         }
 
         public IEnumerable<BookingRequest> Get(int page = 0)
         {
-            var query = _repository.GetAll()
+            var query = _bookingRequestRepository.GetAll()
                     .OrderBy(b => b.RequestNumber)
                     .Skip(Constants.PAGE_SIZE * page)
                     .Take(Constants.PAGE_SIZE);
@@ -38,7 +40,7 @@ namespace BookingWebApi.Controllers
         
         public HttpResponseMessage GetBookingRequest(string requestNumber)
         {
-            var bookingRequest = _repository.GetBookingRequest(requestNumber);
+            var bookingRequest = _bookingRequestRepository.GetBookingRequest(requestNumber);
             if (bookingRequest == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
@@ -48,7 +50,7 @@ namespace BookingWebApi.Controllers
         
         public IEnumerable<BookingRequest> GetStatus(string status)
         {
-            var query = _repository.GetAll()
+            var query = _bookingRequestRepository.GetAll()
                         .Where(b => (string.IsNullOrEmpty(status) ? true : b.Status == status))
                         .OrderBy(b => b.RequestNumber);
             return query.ToList();
@@ -56,10 +58,10 @@ namespace BookingWebApi.Controllers
 
         public HttpResponseMessage GetStatistics()
         { 
-            var numberOfBookings = _repository.GetAll()
+            var numberOfBookings = _bookingRequestRepository.GetAll()
                         .Count(b => b.Status == Constants.BOOKING_STATUS_CONFIRMED);
 
-            var numberOfEnquiries = _repository.GetAll()
+            var numberOfEnquiries = _bookingRequestRepository.GetAll()
                         .Count(b => b.Status == Constants.BOOKING_STATUS_ENQUIRY);
 
             var percentageOfBookings = (numberOfBookings / (numberOfBookings + numberOfEnquiries)) * 100;
@@ -77,12 +79,14 @@ namespace BookingWebApi.Controllers
 
         public HttpResponseMessage Put(string requestNumber, UpdateStatusModel model)
         {
-            if (_repository.GetBookingRequest(requestNumber) == null)
+            if (_bookingRequestRepository.GetBookingRequest(requestNumber) == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
             }
-            _repository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
-            _repository.SaveChanges();
+            var confirmedBooking = _bookingRequestRepository.UpdateStatus(requestNumber, model.Status, model.UpdatedBy);
+            _bookingRequestRepository.SaveChanges();
+
+            SaveConfirmedBooking(confirmedBooking, model.UpdatedBy);
 
             _log.Info(string.Format("Request Number={0};Status={1};Updated by={2};", requestNumber, model.Status, model.UpdatedBy));
 
@@ -91,13 +95,23 @@ namespace BookingWebApi.Controllers
 
         public IEnumerable<BookingRequestKpiModel> GetBookingProcessKpi(int page = 0)
         {
-            var list = _repository.GetAll()
+            var list = _bookingRequestRepository.GetAll()
                     .Where(b => b.Status.Equals(Constants.BOOKING_STATUS_ENQUIRY) || b.Status.Equals(Constants.BOOKING_STATUS_CONFIRMED))
                     .OrderBy(b => b.RequestNumber)
                     .Skip(Constants.PAGE_SIZE * page)
                     .Take(Constants.PAGE_SIZE)
                     .Select(b => new BookingRequestKpiModel { RequestNumber = b.RequestNumber, CreatedDate = b.CreatedDate, AttendedDate = b.UpdatedDate.Value, AttendedBy = b.UpdatedBy }).ToList();
             return list;
+        }
+
+        private void SaveConfirmedBooking(BookingRequest confirmedBooking, string updatedBy)
+        {
+            confirmedBooking.UpdatedBy = null;
+            confirmedBooking.UpdatedDate = null;
+            confirmedBooking.CreatedDate = DateTimeOffset.UtcNow;
+            confirmedBooking.CreatedBy = updatedBy;
+            _mainRepository.Create(confirmedBooking);
+            _mainRepository.SaveChanges();
         }
     }
 }
