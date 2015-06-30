@@ -13,6 +13,7 @@ using AutoMapper;
 using NotificationServices.Interfaces;
 using System.Text;
 using DataAccessLayer.Repositories;
+using Microsoft.AspNet.Identity;
 
 namespace BackOfficeWeb.Controllers
 {
@@ -113,13 +114,13 @@ namespace BackOfficeWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UpdateStatus(UpdateStatusViewModel model)
         {
-            var confirmedBooking = _bookingRequestRepository.UpdateStatus(model.RequestNumber, model.Status, "updatedBy");//TODO: updatedBy
+            var confirmedBooking = _bookingRequestRepository.UpdateStatus(model.RequestNumber, model.Status, User.Identity.GetUserName());
             _bookingRequestRepository.SaveChanges();
 
             confirmedBooking.UpdatedBy = null;
             confirmedBooking.UpdatedDate = null;
             confirmedBooking.CreatedDate = DateTimeOffset.UtcNow;
-            confirmedBooking.CreatedBy = "createdBy";//TODO: created by
+            confirmedBooking.CreatedBy = User.Identity.GetUserName();
             _mainRepository.Create(confirmedBooking);
             _mainRepository.SaveChanges();
 
