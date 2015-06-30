@@ -18,6 +18,7 @@ using System.IO;
 using log4net;
 using Booking.Models;
 using System.Web.Script.Serialization;
+using Booking.Common;
 
 namespace BackOfficeWeb.Controllers
 {
@@ -27,15 +28,18 @@ namespace BackOfficeWeb.Controllers
         private BookingRequestsDbContext db = new BookingRequestsDbContext();
         private readonly ILog _log;
         private readonly IEmailNotification _emailNotification;
-        IBookingRequestRepository _bookingRequestRepository;
-        IBookingMainRepository _mainRepository;
+        private readonly IBookingRequestRepository _bookingRequestRepository;
+        private readonly IBookingMainRepository _mainRepository;
+        private readonly WebHelper _webHelper;
 
-        public BookingRequestController(ILog log, IEmailNotification emailNotification, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository)
+        public BookingRequestController(ILog log, IEmailNotification emailNotification, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, WebHelper webHelper)
         {
             _log = log;
             _emailNotification = emailNotification;
             _bookingRequestRepository = bookingRequestRepository;
             _mainRepository = mainRepository;
+            _webHelper = webHelper;
+
             Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
         }
 
@@ -122,7 +126,7 @@ namespace BackOfficeWeb.Controllers
         {
             var json = new JavaScriptSerializer().Serialize(new UpdateStatusModel{ Status = model.Status, UpdatedBy = User.Identity.GetUserName() });
             bool success;
-            GetResponse(string.Format("http://localhost:60394/api/bookingrequest/updatestatus/{0}", model.RequestNumber), json, "POST", "text/json", out success);
+            _webHelper.GetResponse(string.Format("http://localhost:60394/api/bookingrequest/updatestatus/{0}", model.RequestNumber), json, "POST", "text/json", out success);
 
             if (success)
             {
@@ -144,47 +148,6 @@ namespace BackOfficeWeb.Controllers
             //}
             ViewBag.ErrorMessage = "Update Status Error!";
             return RedirectToAction("Details", new { id = model.RequestNumber });
-        }
-
-        //TODO: move to helper class
-        private string GetResponse(string requestUrl, string requestJson, string httpMethod, string contentType, out bool success)
-        {
-            WebRequest request = null;
-            WebResponse response = null;
-            string responseStr = string.Empty;
-            success = false;
-            try
-            {
-                request = WebRequest.Create(requestUrl);
-                request.Method = httpMethod;
-                request.ContentType = contentType;
-                //request.ContentLength = requestJson.Length;
-
-                StreamWriter writer = new StreamWriter(request.GetRequestStream());
-                writer.WriteLine(requestJson);
-                writer.Close();
-
-                response = request.GetResponse();
-                StreamReader streamReader = new StreamReader(response.GetResponseStream());
-                responseStr = streamReader.ReadToEnd();
-                streamReader.Close();
-                success = true;
-            }
-            catch (WebException webEx)
-            {
-                _log.Error("ERROR", webEx);
-            }
-            catch (Exception ex)
-            {
-                _log.Error("ERROR", ex);
-            }
-            finally
-            {
-                if (request != null) request.GetRequestStream().Close();
-                if (response != null) response.GetResponseStream().Close();
-            }
-
-            return responseStr;
         }
 
         // GET: BookingRequest/Delete/5

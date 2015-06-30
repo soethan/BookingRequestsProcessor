@@ -265,6 +265,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Booking.Common\Booking.Common.csproj">
+      <Project>{8b8825dd-30a2-431f-bf69-703b2a2c010d}</Project>
+      <Name>Booking.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Booking.Models\Booking.Models.csproj">
       <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
       <Name>Booking.Models</Name>
