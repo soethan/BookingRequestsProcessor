@@ -6,7 +6,10 @@
 }
 
 <h2>BookingRequest Details</h2>
-
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <h4>@ViewBag.ErrorMessage</h4>
+    }
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-2">

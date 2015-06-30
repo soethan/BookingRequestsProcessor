@@ -14,6 +14,7 @@ using BookingWebApi.Filters;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DataAccessLayer.Models;
+using Booking.Models;
 
 namespace BookingWebApi.Controllers
 {

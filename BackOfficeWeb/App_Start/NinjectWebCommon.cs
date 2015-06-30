@@ -14,6 +14,7 @@ namespace BackOfficeWeb.App_Start
     using NotificationServices.Implementation;
     using NotificationServices.Interfaces;
     using DataAccessLayer.Repositories;
+    using log4net;
 
     public static class NinjectWebCommon 
     {
@@ -68,6 +69,8 @@ namespace BackOfficeWeb.App_Start
             kernel.Bind<IEmailNotification>().To<EmailNotification>();
             kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
+
+            kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
         }        
     }
 }

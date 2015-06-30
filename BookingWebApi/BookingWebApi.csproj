@@ -246,7 +246,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingRequestKpiModel.cs" />
     <Compile Include="Models\BookingStatisticsModel.cs" />
-    <Compile Include="Models\UpdateStatusModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -320,6 +319,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Booking.Models\Booking.Models.csproj">
+      <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
+      <Name>Booking.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{1548d22f-be2e-4ea2-9963-43c5ed93b85a}</Project>
       <Name>DataAccessLayer</Name>

@@ -45,6 +45,9 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
@@ -262,6 +265,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Booking.Models\Booking.Models.csproj">
+      <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
+      <Name>Booking.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{8b345132-f523-4b3a-a4cb-e41cc165dffe}</Project>
       <Name>DataAccessLayer</Name>
