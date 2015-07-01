@@ -40,7 +40,7 @@ namespace BookingWebApi.Controllers
         public IEnumerable<BookingRequest> Get(int page = 0)
         {
             var query = _bookingRequestRepository.GetAll()
-                    .OrderBy(b => b.RequestNumber)
+                    .OrderBy(b => b.CreatedDate)
                     .Skip(Constants.PAGE_SIZE * page)
                     .Take(Constants.PAGE_SIZE);
             return query.ToList();
@@ -60,7 +60,15 @@ namespace BookingWebApi.Controllers
         {
             var query = _bookingRequestRepository.GetAll()
                         .Where(b => (string.IsNullOrEmpty(status) ? true : b.Status == status))
-                        .OrderBy(b => b.RequestNumber);
+                        .OrderBy(b => b.CreatedDate);
+            return query.ToList();
+        }
+
+        public IEnumerable<BookingRequest> GetPendingBookingRequests()
+        {
+            var query = _bookingRequestRepository.GetAll()
+                        .Where(b => b.Status == Constants.BOOKING_STATUS_PENDING)
+                        .OrderBy(b => b.CreatedDate);
             return query.ToList();
         }
 
@@ -139,7 +147,7 @@ namespace BookingWebApi.Controllers
         {
             var list = _bookingRequestRepository.GetAll()
                     .Where(b => b.Status.Equals(Constants.BOOKING_STATUS_ENQUIRY) || b.Status.Equals(Constants.BOOKING_STATUS_CONFIRMED))
-                    .OrderBy(b => b.RequestNumber)
+                    .OrderBy(b => b.CreatedDate)
                     .Skip(Constants.PAGE_SIZE * page)
                     .Take(Constants.PAGE_SIZE)
                     .Select(b => new BookingRequestKpiModel { RequestNumber = b.RequestNumber, CreatedDate = b.CreatedDate, AttendedDate = b.UpdatedDate.Value, AttendedBy = b.UpdatedBy }).ToList();

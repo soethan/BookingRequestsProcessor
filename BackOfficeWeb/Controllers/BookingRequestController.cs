@@ -34,10 +34,10 @@ namespace BackOfficeWeb.Controllers
             Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
         }
 
-        public ActionResult Index(int page = 0)
+        public ActionResult Index()
         {
             bool success;
-            var response = _webHelper.GetResponse(string.Format("{0}?page={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], page), string.Empty, "GET", "text/json", out success);
+            var response = _webHelper.GetResponse(string.Format("{0}/GetPendingBookingRequests", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
             var list = JsonConvert.DeserializeObject<List<BookingRequest>>(response);
 
             return View(list);
