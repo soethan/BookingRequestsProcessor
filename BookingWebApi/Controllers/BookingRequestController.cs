@@ -20,7 +20,7 @@ using System.Configuration;
 
 namespace BookingWebApi.Controllers
 {
-    public class BookingRequestController : ApiController
+    public class BookingRequestController : RestrictedApiController
     {
         private readonly ILog _log;
         private readonly IEmailNotification _emailNotification;

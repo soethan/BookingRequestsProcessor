@@ -2,6 +2,7 @@
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,9 +33,9 @@ namespace BookingWebApi.Filters
                 if (authHeader.Scheme.Equals("basic", StringComparison.CurrentCultureIgnoreCase) &&
                     !string.IsNullOrEmpty(authHeader.Parameter))
                 {
-                    var token = authHeader.Parameter;
-                       
-                    if (!string.IsNullOrEmpty(token))//Actual usage: Find token in DB
+                    var apiKey = authHeader.Parameter;
+
+                    if (apiKey == ConfigurationManager.AppSettings["ApiKey"])
                     {
                         return;
                     }

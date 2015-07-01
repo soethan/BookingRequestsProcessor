@@ -1,6 +1,7 @@
 ﻿using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,6 +28,7 @@ namespace Booking.Common
                 request = WebRequest.Create(requestUrl);
                 request.Method = httpMethod;
                 request.ContentType = contentType;
+                request.Headers.Add("Authorization", "basic " + ConfigurationManager.AppSettings["ApiKey"]);
 
                 if (!string.IsNullOrEmpty(requestJson))
                 {
