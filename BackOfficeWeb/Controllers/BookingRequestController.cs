@@ -16,6 +16,7 @@ using Booking.Models;
 using System.Web.Script.Serialization;
 using Booking.Common;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace BackOfficeWeb.Controllers
 {
@@ -37,7 +38,7 @@ namespace BackOfficeWeb.Controllers
         {
             bool success;
             var response = _webHelper.GetResponse(string.Format("{0}?page={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], page), string.Empty, "GET", "text/json", out success);
-            var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequest>))) as List<BookingRequest>;
+            var list = JsonConvert.DeserializeObject<List<BookingRequest>>(response);
 
             return View(list);
         }
@@ -46,7 +47,7 @@ namespace BackOfficeWeb.Controllers
         {
             bool success;
             var response = _webHelper.GetResponse(string.Format("{0}/GetStatus?status={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], status), string.Empty, "GET", "text/json", out success);
-            var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequest>))) as List<BookingRequest>;
+            var list = JsonConvert.DeserializeObject<List<BookingRequest>>(response);
 
             ViewData["statistics"] = GetBookingStatistics();
             return View(list);
@@ -56,7 +57,8 @@ namespace BackOfficeWeb.Controllers
         {
             bool success;
             var response = _webHelper.GetResponse(string.Format("{0}/GetStatistics", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
-            var statistics = (new JavaScriptSerializer().Deserialize(response, typeof(BookingStatisticsModel))) as BookingStatisticsModel;
+            var statistics = JsonConvert.DeserializeObject<BookingStatisticsModel>(response);
+
             return statistics;
         }
 
@@ -64,7 +66,7 @@ namespace BackOfficeWeb.Controllers
         {
             bool success;
             var response = _webHelper.GetResponse(string.Format("{0}/GetBookingProcessKpi", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
-            var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequestKpiModel>))) as List<BookingRequestKpiModel>;
+            var list = JsonConvert.DeserializeObject<List<BookingRequestKpiModel>>(response);
 
             return View(list);
         }
@@ -77,7 +79,7 @@ namespace BackOfficeWeb.Controllers
             }
             bool success;
             var response = _webHelper.GetResponse(string.Format("{0}/GetBookingRequest/{1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], id), string.Empty, "GET", "text/json", out success);
-            var bookingRequest = (new JavaScriptSerializer().Deserialize(response, typeof(BookingRequest))) as BookingRequest;
+            var bookingRequest = JsonConvert.DeserializeObject<BookingRequest>(response);
 
             if (bookingRequest == null)
             {
@@ -94,7 +96,7 @@ namespace BackOfficeWeb.Controllers
         public ActionResult UpdateStatus(UpdateStatusViewModel model)
         {
             bool success;
-            var json = new JavaScriptSerializer().Serialize(new UpdateStatusModel{ Status = model.Status, UpdatedBy = User.Identity.GetUserName(), ReplyMessage = model.ReplyMessage });
+            var json = JsonConvert.SerializeObject(new UpdateStatusModel { Status = model.Status, UpdatedBy = User.Identity.GetUserName(), ReplyMessage = model.ReplyMessage });
             
             _webHelper.GetResponse(string.Format("{0}/updatestatus/{1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], model.RequestNumber), json, "POST", "text/json", out success);
 
