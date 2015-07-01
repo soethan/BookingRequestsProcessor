@@ -60,6 +60,15 @@ namespace BackOfficeWeb.Controllers
             return statistics;
         }
 
+        public ActionResult ViewKpi()
+        {
+            bool success;
+            var response = _webHelper.GetResponse(string.Format("{0}/GetBookingProcessKpi", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
+            var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequestKpiModel>))) as List<BookingRequestKpiModel>;
+
+            return View(list);
+        }
+
         public ActionResult Details(string id, bool process = false)
         {
             if (id == null)

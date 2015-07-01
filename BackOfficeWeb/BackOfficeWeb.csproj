@@ -257,6 +257,7 @@
     <Content Include="Views\BookingRequest\Edit.cshtml" />
     <Content Include="Views\BookingRequest\Index.cshtml" />
     <Content Include="Views\BookingRequest\CheckStatus.cshtml" />
+    <Content Include="Views\BookingRequest\ViewKpi.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
