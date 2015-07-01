@@ -14,14 +14,12 @@
                     url : "http://localhost:60394/api/bookingrequest/getbookingrequest/" + $("#txtRequestNumber").val(),
                     datatype : 'JSON',
                     type : 'GET',
-                    crossDomain: true,
-                    contentType: "application/json; charset=utf-8",
+                    contentType: "application/json",
                     success : function(data){
-
                         $("#result").html(data.status);
                     },
-                    error : function(){
-                        alert('error');
+                    error: function (data) {
+                        $("#result").html(data.responseJSON.message);
                     }
                 });
             
