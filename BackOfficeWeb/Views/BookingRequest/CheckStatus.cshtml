@@ -10,10 +10,12 @@
 <div class="form-horizontal">
     <div class="form-group">
         <div class="col-md-12">
-            No of Genuine Bookings: @statistics.NumberOfBookings<br />
-            Percentage of Bookings: @statistics.PercentageOfBookings<br />
-            No of Enquiries: @statistics.NumberOfEnquiries<br />
-            Percentage of Enquiries: @statistics.PercentageOfEnquiries
+            <div class="col-md-6"><b>No of Genuine Bookings: </b>@statistics.NumberOfBookings</div>
+            <div class="col-md-6"><b>Percentage of Bookings: </b>@statistics.PercentageOfBookings</div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6"><b>No of Enquiries: </b>@statistics.NumberOfEnquiries</div>
+            <div class="col-md-6"><b>Percentage of Enquiries: </b>@statistics.PercentageOfEnquiries</div>
         </div>
         <div class="col-md-12">
             Status @Html.DropDownList("Status",new List<SelectListItem> {
