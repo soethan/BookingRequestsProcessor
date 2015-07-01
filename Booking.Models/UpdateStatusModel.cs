@@ -9,5 +9,6 @@ namespace Booking.Models
     {
         public string UpdatedBy { get; set; }
         public string Status { get; set; }
+        public string ReplyMessage { get; set; }
     }
 }

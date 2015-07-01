@@ -15,19 +15,24 @@ using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DataAccessLayer.Models;
 using Booking.Models;
+using System.Text;
+using NotificationServices.Interfaces;
+using System.Configuration;
 
 namespace BookingWebApi.Controllers
 {
     public class BookingRequestController : ApiController
     {
         private readonly ILog _log;
+        private readonly IEmailNotification _emailNotification;
         private readonly IBookingRequestRepository _bookingRequestRepository;
         private readonly IBookingMainRepository _mainRepository;
         private readonly ITransactionRepository _transactionRepository;
 
-        public BookingRequestController(ILog log, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, ITransactionRepository transactionRepository)
+        public BookingRequestController(ILog log, IEmailNotification emailNotification, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, ITransactionRepository transactionRepository)
         {
             _log = log;
+            _emailNotification = emailNotification;
             _bookingRequestRepository = bookingRequestRepository;
             _mainRepository = mainRepository;
             _transactionRepository = transactionRepository;
@@ -80,10 +85,12 @@ namespace BookingWebApi.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, statistics);
         }
+
         [HttpPost]
         public HttpResponseMessage UpdateStatus(string requestNumber, UpdateStatusModel model)
         {
-            if (_bookingRequestRepository.GetBookingRequest(requestNumber) == null)
+            var bookingRequest = _bookingRequestRepository.GetBookingRequest(requestNumber);
+            if (bookingRequest == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Booking request does not exist.");
             }
@@ -95,7 +102,7 @@ namespace BookingWebApi.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
-                //TODO: Send email notification
+                SendEmailToDeliveryOffice(bookingRequest);
             }
             else
             {
@@ -105,12 +112,26 @@ namespace BookingWebApi.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
-                //TODO: Send email notification
+                SendEmailForEnquiry(model.ReplyMessage, bookingRequest);
             }
 
             _log.Info(string.Format("Request Number={0};Status={1};Updated by={2};", requestNumber, model.Status, model.UpdatedBy));
 
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        private void SendEmailForEnquiry(string replyMessage, BookingRequest bookingRequest)
+        {
+            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { bookingRequest.RequestorEmail }, string.Format("Enquiry-RequestNo-{0}", bookingRequest.RequestNumber), replyMessage);
+        }
+
+        private void SendEmailToDeliveryOffice(BookingRequest bookingRequest)
+        {
+            var content = new StringBuilder();
+            content.Append(string.Format("RequestNumber:{0}<br/>", bookingRequest.RequestNumber));
+            content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince));
+
+            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { ConfigurationManager.AppSettings["DeliveryOfficeEmail"] }, string.Format("Parcel Pickup-RequestNo-{0}", bookingRequest.RequestNumber), content.ToString());
         }
 
         public IEnumerable<BookingRequestKpiModel> GetBookingProcessKpi(int page = 0)

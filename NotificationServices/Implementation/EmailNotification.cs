@@ -12,7 +12,7 @@ namespace NotificationServices.Implementation
     {
         public void Send(string sender, List<string> receiver, string subject, string content)
         {
-            File.WriteAllText(@"D:\TestPrjs\BookingRequestsProcessor\" + subject + "-" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".txt", content);
+            File.WriteAllText(@"D:\Personal\TestPrjs\BookingRequestsProcessor\" + subject + "-" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".txt", content);
         }
     }
 }

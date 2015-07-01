@@ -10,9 +10,6 @@ namespace BackOfficeWeb.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using NotificationServices;
-    using NotificationServices.Implementation;
-    using NotificationServices.Interfaces;
     using DataAccessLayer.Repositories;
     using log4net;
 
@@ -66,11 +63,10 @@ namespace BackOfficeWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IEmailNotification>().To<EmailNotification>();
+            kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
+
             kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
             kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
-
-            kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
         }        
     }
 }

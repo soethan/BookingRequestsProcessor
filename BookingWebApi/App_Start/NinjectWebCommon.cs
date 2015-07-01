@@ -17,6 +17,8 @@ namespace BookingWebApi.App_Start
     using BookingWebApi.Filters;
     using System.Web.Http.Filters;
     using Ninject.Web.WebApi.FilterBindingSyntax;
+    using NotificationServices.Interfaces;
+    using NotificationServices.Implementation;
 
     public static class NinjectWebCommon 
     {
@@ -75,6 +77,7 @@ namespace BookingWebApi.App_Start
             kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
             kernel.Bind<ITransactionRepository>().To<TransactionRepository>();
             kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
+            kernel.Bind<IEmailNotification>().To<EmailNotification>();
             
             kernel.BindHttpFilter<BookingApiAuthorizationFilterAttribute>(FilterScope.Global).WhenControllerHas<BookingApiAuthorizationFilterAttribute>();
         }        

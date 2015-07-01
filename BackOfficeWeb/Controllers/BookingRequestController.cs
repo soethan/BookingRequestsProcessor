@@ -27,15 +27,13 @@ namespace BackOfficeWeb.Controllers
     {
         private BookingRequestsDbContext db = new BookingRequestsDbContext();
         private readonly ILog _log;
-        private readonly IEmailNotification _emailNotification;
         private readonly IBookingRequestRepository _bookingRequestRepository;
         private readonly IBookingMainRepository _mainRepository;
         private readonly WebHelper _webHelper;
 
-        public BookingRequestController(ILog log, IEmailNotification emailNotification, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, WebHelper webHelper)
+        public BookingRequestController(ILog log, IBookingRequestRepository bookingRequestRepository, IBookingMainRepository mainRepository, WebHelper webHelper)
         {
             _log = log;
-            _emailNotification = emailNotification;
             _bookingRequestRepository = bookingRequestRepository;
             _mainRepository = mainRepository;
             _webHelper = webHelper;
@@ -124,7 +122,7 @@ namespace BackOfficeWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UpdateStatus(UpdateStatusViewModel model)
         {
-            var json = new JavaScriptSerializer().Serialize(new UpdateStatusModel{ Status = model.Status, UpdatedBy = User.Identity.GetUserName() });
+            var json = new JavaScriptSerializer().Serialize(new UpdateStatusModel{ Status = model.Status, UpdatedBy = User.Identity.GetUserName(), ReplyMessage = model.ReplyMessage });
             bool success;
             _webHelper.GetResponse(string.Format("http://localhost:60394/api/bookingrequest/updatestatus/{0}", model.RequestNumber), json, "POST", "text/json", out success);
 
@@ -133,19 +131,6 @@ namespace BackOfficeWeb.Controllers
                 return RedirectToAction("Index");
             }
             
-            //TODO: move to API 
-            //if (confirmedBooking.Status == "Confirmed")
-            //{
-            //    var content = new StringBuilder();
-            //    content.Append(string.Format("RequestNumber:{0}<br/>", model.RequestNumber));
-            //    content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", confirmedBooking.PickUpAddress1, confirmedBooking.PickUpAddress2, confirmedBooking.PickUpAddressCity, confirmedBooking.PickUpAddressCountry, confirmedBooking.PickUpAddressPostal, confirmedBooking.PickUpAddressProvince));
-                
-            //    _emailNotification.Send("no-reply@alpha.com", new List<string>{"delivery-office@alpha.com"}, "Parcel Pickup", content.ToString());
-            //}
-            //else if (confirmedBooking.Status == "Enquiry")
-            //{
-            //    _emailNotification.Send("no-reply@alpha.com", new List<string> { confirmedBooking.RequestorEmail }, "Enquiry", model.ReplyMessage);
-            //}
             ViewBag.ErrorMessage = "Update Status Error!";
             return RedirectToAction("Details", new { id = model.RequestNumber });
         }
