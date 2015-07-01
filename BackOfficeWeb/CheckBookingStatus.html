@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            $("#btnSearch").click(function () {
+                //$.getJSON("http://localhost:60394/api/bookingrequest/getbookingrequest/" + $("#txtRequestNumber").val(), function (result) {
+                //    $("#result").html(result.status);
+                //});
+
+                $.ajax({
+                    url : "http://localhost:60394/api/bookingrequest/getbookingrequest/" + $("#txtRequestNumber").val(),
+                    datatype : 'JSON',
+                    type : 'GET',
+                    crossDomain: true,
+                    contentType: "application/json; charset=utf-8",
+                    success : function(data){
+
+                        $("#result").html(data.status);
+                    },
+                    error : function(){
+                        alert('error');
+                    }
+                });
+            
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div>Request Number: <input type="text" id="txtRequestNumber" /> <input type="button" id="btnSearch" value="Search" /></div>
+    <div id="result"></div>
+</body>
+</html>

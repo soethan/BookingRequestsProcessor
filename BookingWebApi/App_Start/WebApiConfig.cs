@@ -25,7 +25,7 @@ namespace BookingWebApi
             config.Filters.Add(new GlobalExceptionFilterAttribute(LogManager.GetLogger(typeof(GlobalExceptionFilterAttribute))));
             
             //To support CORS Cross-Origin Resource Sharing, use below
-            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
