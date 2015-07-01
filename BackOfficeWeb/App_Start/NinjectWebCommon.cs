@@ -10,7 +10,6 @@ namespace BackOfficeWeb.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using DataAccessLayer.Repositories;
     using log4net;
 
     public static class NinjectWebCommon 
@@ -64,9 +63,6 @@ namespace BackOfficeWeb.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target.Member.ReflectedType));
-
-            kernel.Bind<IBookingMainRepository>().To<BookingMainRepository>();
-            kernel.Bind<IBookingRequestRepository>().To<BookingRequestRepository>();
         }        
     }
 }

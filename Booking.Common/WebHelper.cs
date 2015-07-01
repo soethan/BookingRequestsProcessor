@@ -27,12 +27,14 @@ namespace Booking.Common
                 request = WebRequest.Create(requestUrl);
                 request.Method = httpMethod;
                 request.ContentType = contentType;
-                //request.ContentLength = requestJson.Length;
 
-                StreamWriter writer = new StreamWriter(request.GetRequestStream());
-                writer.WriteLine(requestJson);
-                writer.Close();
-
+                if (!string.IsNullOrEmpty(requestJson))
+                {
+                    StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                    writer.WriteLine(requestJson);
+                    writer.Close();
+                }
+                
                 response = request.GetResponse();
                 StreamReader streamReader = new StreamReader(response.GetResponseStream());
                 responseStr = streamReader.ReadToEnd();
@@ -50,7 +52,7 @@ namespace Booking.Common
             }
             finally
             {
-                if (request != null) request.GetRequestStream().Close();
+                if (request != null && httpMethod == "POST") request.GetRequestStream().Close();
                 if (response != null) response.GetResponseStream().Close();
             }
 

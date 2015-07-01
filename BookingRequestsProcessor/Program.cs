@@ -28,7 +28,7 @@ namespace BookingRequestsProcessor
         static void Main(string[] args)
         {
             _log.Info("***Service Starts***");
-            Mapper.CreateMap<BookingRequest, DataAccessLayer.Models.BookingRequest>();
+            Mapper.CreateMap<BookingRequest, Booking.Models.BookingRequest>();
 
             WatchBookingRequestsFolder();
             Console.WriteLine("Press any key to terminate the application...");
@@ -151,8 +151,8 @@ namespace BookingRequestsProcessor
 
             foreach (BookingRequest req in bookingRequests)
             {
-                var bookingRequestEntity = new DataAccessLayer.Models.BookingRequest();
-                Mapper.Map<BookingRequest, DataAccessLayer.Models.BookingRequest>(req, bookingRequestEntity);
+                var bookingRequestEntity = new Booking.Models.BookingRequest();
+                Mapper.Map<BookingRequest, Booking.Models.BookingRequest>(req, bookingRequestEntity);
                 bookingRequestEntity.Status = "Pending";
                 bookingRequestEntity.CreatedBy = "System";
                 bookingRequestEntity.CreatedDate = DateTimeOffset.UtcNow;

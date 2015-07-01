@@ -13,7 +13,6 @@ using System.Reflection;
 using BookingWebApi.Filters;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
-using DataAccessLayer.Models;
 using Booking.Models;
 using System.Text;
 using NotificationServices.Interfaces;

@@ -86,6 +86,10 @@
     <Folder Include="Data\FTP_Response\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Booking.Models\Booking.Models.csproj">
+      <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
+      <Name>Booking.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{8b345132-f523-4b3a-a4cb-e41cc165dffe}</Project>
       <Name>DataAccessLayer</Name>

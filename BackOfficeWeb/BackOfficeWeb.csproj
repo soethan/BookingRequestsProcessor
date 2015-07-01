@@ -273,14 +273,6 @@
       <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
       <Name>Booking.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{8b345132-f523-4b3a-a4cb-e41cc165dffe}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NotificationServices\NotificationServices.csproj">
-      <Project>{72ed212f-079e-4d4c-aee1-380e959768bc}</Project>
-      <Name>NotificationServices</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

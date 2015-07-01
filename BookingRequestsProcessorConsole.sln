@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingRequestsProcessor", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{8B345132-F523-4B3A-A4CB-E41CC165DFFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.Models", "Booking.Models\Booking.Models.csproj", "{C47DC291-181F-4BA9-A4EC-999B59B649E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8B345132-F523-4B3A-A4CB-E41CC165DFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B345132-F523-4B3A-A4CB-E41CC165DFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B345132-F523-4B3A-A4CB-E41CC165DFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47DC291-181F-4BA9-A4EC-999B59B649E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47DC291-181F-4BA9-A4EC-999B59B649E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47DC291-181F-4BA9-A4EC-999B59B649E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47DC291-181F-4BA9-A4EC-999B59B649E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Models;
+﻿using Booking.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Transactions;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace DataAccessLayer.Repositories
 {
@@ -18,9 +18,12 @@ namespace DataAccessLayer.Repositories
 
         public TransactionRepository(BookingMainDbContext mainDbContext, BookingRequestsDbContext bookingRequestsDbContext, ILog log)
         {
+            Mapper.CreateMap<BookingRequest, BookingRequest>();
+
             _log = log;
             _mainDbContext = mainDbContext;
             _bookingRequestsDbContext = bookingRequestsDbContext;
+            
         }
 
         public bool UpdateStatus(string requestNumber, string status, string updatedBy)
@@ -39,7 +42,9 @@ namespace DataAccessLayer.Repositories
                     bookingRequest.UpdatedDate = DateTimeOffset.UtcNow;
 
                     //2. Update Main DB
-                    SaveConfirmedBooking(bookingRequest, updatedBy);
+                    var confirmedBooking = new BookingRequest();
+                    Mapper.Map<BookingRequest, BookingRequest>(bookingRequest, confirmedBooking);
+                    SaveConfirmedBooking(confirmedBooking, updatedBy);
 
                     _bookingRequestsDbContext.SaveChanges();
                     _mainDbContext.SaveChanges();

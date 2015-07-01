@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Models;
+﻿using Booking.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
