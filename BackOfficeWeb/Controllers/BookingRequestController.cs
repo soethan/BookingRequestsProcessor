@@ -42,7 +42,16 @@ namespace BackOfficeWeb.Controllers
             return View(list);
         }
 
-        public ActionResult Details(string id)
+        public ActionResult CheckStatus(string status)
+        {
+            bool success;
+            var response = _webHelper.GetResponse(string.Format("{0}/GetStatus?status={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], status), string.Empty, "GET", "text/json", out success);
+            var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequest>))) as List<BookingRequest>;
+
+            return View(list);
+        }
+
+        public ActionResult Details(string id, bool process = false)
         {
             if (id == null)
             {
@@ -58,6 +67,7 @@ namespace BackOfficeWeb.Controllers
             }
             var viewModel = new UpdateStatusViewModel();
             Mapper.Map<BookingRequest, UpdateStatusViewModel>(bookingRequest, viewModel);
+            ViewBag.Process = process;
             return View(viewModel);
         }
 

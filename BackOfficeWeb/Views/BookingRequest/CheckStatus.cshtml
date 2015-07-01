@@ -5,7 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Booking Requests</h2>
+<h2>Check Booking Requests Status</h2>
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-12">
+            Status @Html.DropDownList("Status",new List<SelectListItem> {
+                                            new SelectListItem { Text = "All", Value = "" },
+                                            new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
+                                            new SelectListItem { Text = "Enquiry", Value = "Enquiry" } ,
+                                            new SelectListItem { Text = "Pending", Value = "Pending" } },
+                                            new { htmlAttributes = new { @class = "form-control" } })
+            <input type="button" id="btnSearch" value="Search" />
+        </div>
+    </div>
+
+</div>
 <table class="table">
     <tr>
         <th>
@@ -62,10 +76,18 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Process", "Details", new { id = item.RequestNumber, process = true })
-            
+            @Html.ActionLink("Details", "Details", new { id = item.RequestNumber })
         </td>
     </tr>
 }
 
 </table>
+@section Scripts {
+    <script>
+        $(function () {
+            $("#btnSearch").click(function () {
+                window.location.href = '@Url.Action("CheckStatus", "BookingRequest")' + "?Status=" + $("#Status").val();
+            });
+        });
+    </script>
+}

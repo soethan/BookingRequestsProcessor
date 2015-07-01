@@ -243,7 +243,7 @@
                 @Html.DisplayFor(model => model.Remarks)
             </div>
         </div>
-        @if (Model.Status == "Pending")
+        @if (Model.Status == "Pending" && ViewBag.Process != null && ViewBag.Process == true)
         {
             using (Html.BeginForm("UpdateStatus", "BookingRequest"))
             {
@@ -297,7 +297,7 @@
     </div>
 
     <p>
-        @Html.ActionLink("Back to Booking Requests", "Index")
+        @Html.ActionLink("Back to Booking Requests", ViewBag.Process != null && ViewBag.Process == true ? "Index" : "CheckStatus")
     </p>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
