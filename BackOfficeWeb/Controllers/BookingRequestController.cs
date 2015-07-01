@@ -48,7 +48,16 @@ namespace BackOfficeWeb.Controllers
             var response = _webHelper.GetResponse(string.Format("{0}/GetStatus?status={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], status), string.Empty, "GET", "text/json", out success);
             var list = (new JavaScriptSerializer().Deserialize(response, typeof(List<BookingRequest>))) as List<BookingRequest>;
 
+            ViewData["statistics"] = GetBookingStatistics();
             return View(list);
+        }
+
+        private BookingStatisticsModel GetBookingStatistics()
+        {
+            bool success;
+            var response = _webHelper.GetResponse(string.Format("{0}/GetStatistics", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
+            var statistics = (new JavaScriptSerializer().Deserialize(response, typeof(BookingStatisticsModel))) as BookingStatisticsModel;
+            return statistics;
         }
 
         public ActionResult Details(string id, bool process = false)

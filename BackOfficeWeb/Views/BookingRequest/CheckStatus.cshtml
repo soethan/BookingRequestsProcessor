@@ -3,11 +3,18 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var statistics = ViewData["statistics"] as Booking.Models.BookingStatisticsModel;
 }
 
 <h2>Check Booking Requests Status</h2>
 <div class="form-horizontal">
     <div class="form-group">
+        <div class="col-md-12">
+            No of Genuine Bookings: @statistics.NumberOfBookings<br />
+            Percentage of Bookings: @statistics.PercentageOfBookings<br />
+            No of Enquiries: @statistics.NumberOfEnquiries<br />
+            Percentage of Enquiries: @statistics.PercentageOfEnquiries
+        </div>
         <div class="col-md-12">
             Status @Html.DropDownList("Status",new List<SelectListItem> {
                                             new SelectListItem { Text = "All", Value = "" },
