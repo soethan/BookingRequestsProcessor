@@ -88,12 +88,6 @@ namespace BackOfficeWeb.Controllers
             ViewBag.Process = process;
             return View(viewModel);
         }
-
-        // GET: BookingRequest/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
