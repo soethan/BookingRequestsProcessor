@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 @{
     string appName = "Alpha BackOffice Web";
+    var controllerName = Url.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    var actionName = Url.RequestContext.RouteData.Values["action"].ToString().ToLower();
 }
 <html>
 <head>
@@ -24,10 +26,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Process Booking Requests", "Index", "BookingRequest")</li>
-                    <li>@Html.ActionLink("View Booking Requests", "CheckStatus", "BookingRequest")</li>
-                    <li>@Html.ActionLink("View Call Center KPI", "ViewKpi", "BookingRequest")</li>
+                    <li @(controllerName == "home" && actionName == "index" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                    <li @(controllerName == "bookingrequest" && actionName == "index" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("Process Booking Requests", "Index", "BookingRequest")</li>
+                    <li @(controllerName == "bookingrequest" && actionName == "checkstatus" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("View Booking Requests", "CheckStatus", "BookingRequest")</li>
+                    <li @(controllerName == "bookingrequest" && actionName == "viewkpi" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("View Call Center KPI", "ViewKpi", "BookingRequest")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -37,10 +37,10 @@
                     @Html.DisplayFor(modelItem => item.TimeTaken)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AttendedDate)
+                    @item.AttendedDate.ToString("yyyy-MM-dd hh:mm:ss")
                 </td>
             </tr>
         }

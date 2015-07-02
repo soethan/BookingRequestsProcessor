@@ -208,10 +208,33 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
+                CreatedDate
+            </div>
+            <div class="col-md-3">
+                @Model.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
+            </div>
+            <div class="col-md-2">
+                AttendedDate
+            </div>
+            <div class="col-md-3">
+                @if(Model.UpdatedDate.HasValue)
+                {
+                    @Model.UpdatedDate.Value.ToString("yyyy-MM-dd hh:mm:ss")
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
                 @Html.DisplayNameFor(model => model.Remarks)
             </div>
-            <div class="col-md-10">
+            <div class="col-md-3">
                 @Html.DisplayFor(model => model.Remarks)
+            </div>
+            <div class="col-md-2">
+                AttendedBy
+            </div>
+            <div class="col-md-3">
+                @Model.UpdatedBy
             </div>
         </div>
         @if (Model.Status == "Pending" && ViewBag.Process != null && ViewBag.Process == true)

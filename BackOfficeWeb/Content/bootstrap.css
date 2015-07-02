@@ -6816,3 +6816,7 @@ td.visible-print {
     display: none !important;
   }
 }
+.selected-menuitem a{
+    color: #ffffff !important;
+    font-weight:bold;
+}
