@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.wrapper{
+    min-height: 670px;
+}
+footer{
+    text-align:center
+}

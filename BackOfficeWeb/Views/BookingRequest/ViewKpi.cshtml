@@ -1,48 +1,48 @@
 ﻿@model IEnumerable<Booking.Models.BookingRequestKpiModel>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="wrapper">
+    <h2>View Call Center KPI</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTaken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendedDate)
+            </th>
+        </tr>
 
-<h2>View Call Center KPI</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttendedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeTaken)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttendedDate)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttendedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeTaken)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttendedDate)
-        </td>
-    </tr>
-}
-
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeTaken)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendedDate)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

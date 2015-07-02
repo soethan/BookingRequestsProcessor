@@ -4,68 +4,70 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="wrapper">
+    <h2>Process Booking Requests</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestorEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
 
-<h2>Process Booking Requests</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorLastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestorEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorDeskPhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestorEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Process", "Details", new { id = item.RequestNumber, process = true })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorDeskPhoneNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestorEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Process", "Details", new { id = item.RequestNumber, process = true })
-            
-        </td>
-    </tr>
-}
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
-</table>

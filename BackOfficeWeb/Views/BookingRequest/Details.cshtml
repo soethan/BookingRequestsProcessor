@@ -1,11 +1,10 @@
 ﻿@model BackOfficeWeb.Models.UpdateStatusViewModel
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>BookingRequest Details</h2>
+<div class="wrapper">
+    <h2>BookingRequest Details</h2>
     @if (ViewBag.ErrorMessage != null)
     {
         <h4>@ViewBag.ErrorMessage</h4>
@@ -225,13 +224,13 @@
                         Request Type
                     </div>
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Status, 
+                        @Html.DropDownListFor(model => model.Status,
                                                 new List<SelectListItem> {
                                                     new SelectListItem { Text = "Please select new status", Value = "" },
                                                     new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
-                                                    new SelectListItem { Text = "Enquiry", Value = "Enquiry" } }, 
+                                                    new SelectListItem { Text = "Enquiry", Value = "Enquiry" } },
                                                     new { id = "ddlStatus", htmlAttributes = new { @class = "form-control" } })
-                        
+
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     </div>
@@ -241,7 +240,7 @@
                         Reply Message
                     </div>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.ReplyMessage, new { id = "txtReplyMessage", style="display:none" })
+                        @Html.TextAreaFor(model => model.ReplyMessage, new { id = "txtReplyMessage", style = "display:none" })
                         @*<textarea id="txtReplyMessage" name="txtReplyMessage" style="display:none"></textarea>*@
                     </div>
                 </div>
@@ -264,12 +263,13 @@
                 </div>
             </div>
         }
-        
-    </div>
 
+    </div>
     <p>
         @Html.ActionLink("Back to Booking Requests", ViewBag.Process != null && ViewBag.Process == true ? "Index" : "CheckStatus")
     </p>
+</div>
+    
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
