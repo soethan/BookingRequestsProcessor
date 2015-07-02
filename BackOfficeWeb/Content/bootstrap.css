@@ -1479,9 +1479,12 @@ th {
   border-bottom-width: 2px;
 }
 
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
+.table-striped tr:first-child{
+    background-color: #000;
+    color:#fff;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+  background-color: #e7e7ff;
 }
 
 .table-hover > tbody > tr:hover > td,

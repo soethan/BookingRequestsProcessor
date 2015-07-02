@@ -6,7 +6,7 @@
 }
 <div class="wrapper">
     <h2>Process Booking Requests</h2>
-    <table class="table">
+    <table class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.RequestNumber)
@@ -21,10 +21,10 @@
                 @Html.DisplayNameFor(model => model.RequestorLastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
+                RequestorMobile
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RequestorEmail)
@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RequestorDeskPhoneNo)
+                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestorEmail)
@@ -64,7 +64,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Process", "Details", new { id = item.RequestNumber, process = true })
-
                 </td>
             </tr>
         }
