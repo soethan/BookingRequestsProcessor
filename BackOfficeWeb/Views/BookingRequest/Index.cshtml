@@ -59,7 +59,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestorEmail)
                 </td>
-                <td>
+                <td class="@item.Status.ToLower()">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>

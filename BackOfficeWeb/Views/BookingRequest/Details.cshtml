@@ -282,7 +282,7 @@
                     @Html.DisplayNameFor(model => model.Status)
                 </div>
                 <div class="col-md-10">
-                    @Html.DisplayFor(model => model.Status)
+                    <span class="@Model.Status.ToLower()">@Html.DisplayFor(model => model.Status)</span>
                 </div>
             </div>
         }

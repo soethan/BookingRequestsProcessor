@@ -28,3 +28,15 @@ textarea {
 footer{
     text-align:center
 }
+.pending{
+    color: #0026ff;
+    font-weight:bold;
+}
+.confirmed{
+    color: #008000;
+    font-weight:bold;
+}
+.enquiry{
+    color: #FFA500;
+    font-weight:bold;
+}
