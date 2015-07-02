@@ -2,11 +2,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
-    var pagingModel = new BackOfficeWeb.Models.PagingModel { 
-        TotalPages = ViewBag.TotalPages,
-        CurrentPage = ViewBag.CurrentPage
-    };
 }
 <div class="wrapper">
     <h4>Process Booking Requests</h4>
@@ -72,7 +67,7 @@
             </tr>
         }
     </table>
-    @Html.Partial("_PagingPartial", pagingModel)
+    @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
 </div>
 @section scripts{
     <script>

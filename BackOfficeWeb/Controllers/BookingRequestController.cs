@@ -40,8 +40,8 @@ namespace BackOfficeWeb.Controllers
             var response = _webHelper.GetResponse(string.Format("{0}/GetPendingBookingRequests?page={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], page), string.Empty, "GET", "text/json", out success);
             var result = JsonConvert.DeserializeObject<BookingListModel>(response);
 
-            ViewBag.TotalPages = result.TotalPages;
-            ViewBag.CurrentPage = page;
+            SetPagingModel(page, result.TotalPages);
+
             return View(result.BookingRequests);
         }
 
@@ -52,9 +52,19 @@ namespace BackOfficeWeb.Controllers
             var result = JsonConvert.DeserializeObject<BookingListModel>(response);
 
             ViewData["statistics"] = GetBookingStatistics();
-            ViewBag.TotalPages = result.TotalPages;
-            ViewBag.CurrentPage = page;
+
+            SetPagingModel(page, result.TotalPages);
+
             return View(result.BookingRequests);
+        }
+
+        private void SetPagingModel(int currentPage, int totalPages)
+        {
+            ViewBag.PagingModel = new PagingModel
+            {
+                TotalPages = totalPages,
+                CurrentPage = currentPage
+            };
         }
 
         private BookingStatisticsModel GetBookingStatistics()
