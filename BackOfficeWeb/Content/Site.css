@@ -23,7 +23,7 @@ textarea {
     max-width: 280px;
 }
 .wrapper{
-    min-height: 670px;
+    min-height: 470px;
 }
 footer{
     text-align:center
@@ -39,4 +39,7 @@ footer{
 .enquiry{
     color: #FFA500;
     font-weight:bold;
+}
+.pager{
+    float:right;
 }

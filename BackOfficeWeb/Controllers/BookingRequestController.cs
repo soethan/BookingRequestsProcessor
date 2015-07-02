@@ -34,23 +34,27 @@ namespace BackOfficeWeb.Controllers
             Mapper.CreateMap<BookingRequest, UpdateStatusViewModel>();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 0)
         {
             bool success;
-            var response = _webHelper.GetResponse(string.Format("{0}/GetPendingBookingRequests", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
-            var list = JsonConvert.DeserializeObject<List<BookingRequest>>(response);
+            var response = _webHelper.GetResponse(string.Format("{0}/GetPendingBookingRequests?page={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], page), string.Empty, "GET", "text/json", out success);
+            var result = JsonConvert.DeserializeObject<BookingListModel>(response);
 
-            return View(list);
+            ViewBag.TotalPages = result.TotalPages;
+            ViewBag.CurrentPage = page;
+            return View(result.BookingRequests);
         }
 
-        public ActionResult CheckStatus(string status)
+        public ActionResult CheckStatus(string status, int page = 0)
         {
             bool success;
-            var response = _webHelper.GetResponse(string.Format("{0}/GetStatus?status={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], status), string.Empty, "GET", "text/json", out success);
-            var list = JsonConvert.DeserializeObject<List<BookingRequest>>(response);
+            var response = _webHelper.GetResponse(string.Format("{0}/GetStatus?status={1}&page={2}", ConfigurationManager.AppSettings["BookingWebApiUrl"], status, page), string.Empty, "GET", "text/json", out success);
+            var result = JsonConvert.DeserializeObject<BookingListModel>(response);
 
             ViewData["statistics"] = GetBookingStatistics();
-            return View(list);
+            ViewBag.TotalPages = result.TotalPages;
+            ViewBag.CurrentPage = page;
+            return View(result.BookingRequests);
         }
 
         private BookingStatisticsModel GetBookingStatistics()

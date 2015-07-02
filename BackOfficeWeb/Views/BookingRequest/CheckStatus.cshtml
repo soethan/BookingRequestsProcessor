@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<Booking.Models.BookingRequest>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var statistics = ViewData["statistics"] as Booking.Models.BookingStatisticsModel;
+
+    var pagingModel = new BackOfficeWeb.Models.PagingModel
+    {
+        TotalPages = ViewBag.TotalPages,
+        CurrentPage = ViewBag.CurrentPage
+    };
 }
 <div class="wrapper">
     <h4>View Booking Requests</h4>
@@ -46,13 +51,13 @@
                 RequestorMobile
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RequestorEmail)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th></th>
         </tr>
@@ -76,13 +81,13 @@
                     @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
                 </td>
                 <td>
-                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.RequestorEmail)
                 </td>
                 <td class="@item.Status.ToLower()">
                     @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.RequestNumber })
@@ -90,14 +95,19 @@
             </tr>
         }
     </table>
+    @Html.Partial("_PagingPartial", pagingModel)
 </div>
 
 @section Scripts {
     <script>
-        $(function () {
-            $("#btnSearch").click(function () {
-                window.location.href = '@Url.Action("CheckStatus", "BookingRequest")' + "?Status=" + $("#Status").val();
-            });
+    $(function () {
+        $("#btnSearch").click(function () {
+            window.location.href = '@Url.Action("CheckStatus", "BookingRequest")' + "?status=" + $("#Status").val();
         });
+
+        $("#pager").change(function () {
+            window.location.href = '@Url.Action("CheckStatus", "BookingRequest")' + "?status=" + $("#Status").val() + '&page=' + $(this).val();
+        });
+    });
     </script>
 }

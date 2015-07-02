@@ -1,0 +1,17 @@
+﻿@model BackOfficeWeb.Models.PagingModel
+@{
+    int totalPages = Model.TotalPages;
+    int currentPage = Model.CurrentPage;
+}
+@if (totalPages > 0)
+{
+    <div class="pager">
+        <span>Page</span>
+        <select id="pager">
+            @for (int i = 0; i < totalPages; i++)
+            {
+                <option @(currentPage == i ? "selected" : string.Empty) value="@i">@(i + 1)</option>
+            }
+        </select>
+    </div>
+}

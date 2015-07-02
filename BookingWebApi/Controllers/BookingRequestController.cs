@@ -40,9 +40,9 @@ namespace BookingWebApi.Controllers
         public IEnumerable<BookingRequest> Get(int page = 0)
         {
             var query = _bookingRequestRepository.GetAll()
-                    .OrderBy(b => b.CreatedDate)
-                    .Skip(Constants.PAGE_SIZE * page)
-                    .Take(Constants.PAGE_SIZE);
+                        .OrderBy(b => b.CreatedDate)
+                        .Skip(Constants.PAGE_SIZE * page)
+                        .Take(Constants.PAGE_SIZE);
             return query.ToList();
         }
         
@@ -55,21 +55,35 @@ namespace BookingWebApi.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, bookingRequest);
         }
-        
-        public IEnumerable<BookingRequest> GetStatus(string status)
+
+        public HttpResponseMessage GetStatus(string status, int page = 0)
         {
-            var query = _bookingRequestRepository.GetAll()
-                        .Where(b => (string.IsNullOrEmpty(status) ? true : b.Status == status))
-                        .OrderBy(b => b.CreatedDate);
-            return query.ToList();
+            var query = _bookingRequestRepository
+                            .GetAll()
+                            .Where(b => (string.IsNullOrEmpty(status) ? true : b.Status == status))
+                            .OrderBy(b => b.CreatedDate);
+
+            var pagedQuery = query
+                                .Skip(Constants.PAGE_SIZE * page)
+                                .Take(Constants.PAGE_SIZE);
+
+            return Request.CreateResponse(HttpStatusCode.OK,
+                new BookingListModel { BookingRequests = pagedQuery.ToList(), TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) });
         }
 
-        public IEnumerable<BookingRequest> GetPendingBookingRequests()
+        public HttpResponseMessage GetPendingBookingRequests(int page = 0)
         {
-            var query = _bookingRequestRepository.GetAll()
-                        .Where(b => b.Status == Constants.BOOKING_STATUS_PENDING)
-                        .OrderBy(b => b.CreatedDate);
-            return query.ToList();
+            var query = _bookingRequestRepository
+                            .GetAll()
+                            .Where(b => b.Status == Constants.BOOKING_STATUS_PENDING)
+                            .OrderBy(b => b.CreatedDate);
+            
+            var pagedQuery = query
+                                .Skip(Constants.PAGE_SIZE * page)
+                                .Take(Constants.PAGE_SIZE);
+
+             return Request.CreateResponse(HttpStatusCode.OK,
+                new BookingListModel { BookingRequests = pagedQuery.ToList(), TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) });
         }
 
         public HttpResponseMessage GetStatistics()
