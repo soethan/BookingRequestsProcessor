@@ -7,7 +7,7 @@
 {
     <div class="pager">
         <span>Page</span>
-        <select id="pager">
+        <select id="pager" class="selectpicker" data-style="btn-primary" data-width="auto">
             @for (int i = 0; i < totalPages; i++)
             {
                 <option @(currentPage == i ? "selected" : string.Empty) value="@i">@(i + 1)</option>

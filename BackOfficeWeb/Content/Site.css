@@ -47,3 +47,7 @@ footer{
     width:20px;
     height:15px;
 }
+.error-msg{
+    color:#ff0000;
+    font-weight:bold;
+}

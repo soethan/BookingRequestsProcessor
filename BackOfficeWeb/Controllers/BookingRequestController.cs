@@ -119,6 +119,12 @@ namespace BackOfficeWeb.Controllers
             var viewModel = new UpdateStatusViewModel();
             Mapper.Map<BookingRequest, UpdateStatusViewModel>(bookingRequest, viewModel);
             ViewBag.Process = process;
+
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
+
             return View(viewModel);
         }
         
@@ -135,9 +141,9 @@ namespace BackOfficeWeb.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
-            ViewBag.ErrorMessage = "Update Status Error!";
-            return RedirectToAction("Details", new { id = model.RequestNumber });
+
+            TempData["ErrorMessage"] = "Update Status Error!";
+            return RedirectToAction("Details", new { id = model.RequestNumber, process = true });
         }
     }
 }
