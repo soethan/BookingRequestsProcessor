@@ -25,9 +25,9 @@ namespace BackOfficeWeb
                       "~/Scripts/bootstrap-select.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/bootstrap-select.min.css"));
+                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/site.css",
+                      "~/Content/css/bootstrap-select.min.css"));
         }
     }
 }
