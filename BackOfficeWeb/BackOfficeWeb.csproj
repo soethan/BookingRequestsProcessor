@@ -194,6 +194,11 @@
     <Compile Include="Models\PagingModel.cs" />
     <Compile Include="Models\UpdateStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Text.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Text.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +266,13 @@
     <Content Include="Views\BookingRequest\ViewKpi.cshtml" />
     <Content Include="Views\BookingRequest\_PagingPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Text.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Text.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Text.th-TH.resx" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -277,6 +288,10 @@
     <ProjectReference Include="..\Booking.Models\Booking.Models.csproj">
       <Project>{c47dc291-181f-4ba9-a4ec-999b59b649e2}</Project>
       <Name>Booking.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcRouteLocalization\MvcRouteLocalization.csproj">
+      <Project>{20054473-1cf4-45e6-9d7f-c793aa905334}</Project>
+      <Name>MvcRouteLocalization</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
