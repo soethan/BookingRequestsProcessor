@@ -1,8 +1,6 @@
 ﻿<!DOCTYPE html>
 @{
     string appName = "Alpha BackOffice Web";
-    var controllerName = Url.RequestContext.RouteData.Values["controller"].ToString().ToLower();
-    var actionName = Url.RequestContext.RouteData.Values["action"].ToString().ToLower();
 }
 <html>
 <head>
@@ -26,10 +24,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li @(controllerName == "home" && actionName == "index" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                    <li @(controllerName == "bookingrequest" && actionName == "index" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("Process Booking Requests", "Index", "BookingRequest")</li>
-                    <li @(controllerName == "bookingrequest" && actionName == "checkstatus" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("View Booking Requests", "CheckStatus", "BookingRequest")</li>
-                    <li @(controllerName == "bookingrequest" && actionName == "viewkpi" ? "class=selected-menuitem" : string.Empty)>@Html.ActionLink("View Call Center KPI", "ViewKpi", "BookingRequest")</li>
+                    <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a id="dLabel" data-target="#" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Bookings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li>@Html.ActionLink("Process Booking Requests", "Index", "BookingRequest")</li>
+                            <li>@Html.ActionLink("View Booking Requests", "CheckStatus", "BookingRequest")</li>
+                            <li>@Html.ActionLink("View Call Center KPI", "ViewKpi", "BookingRequest")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -46,5 +52,20 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                    $(this).toggleClass('open');
+                    $('b', this).toggleClass("caret caret-up");
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                    $(this).toggleClass('open');
+                    $('b', this).toggleClass("caret caret-up");
+            });
+        });
+    </script>
 </body>
 </html>
