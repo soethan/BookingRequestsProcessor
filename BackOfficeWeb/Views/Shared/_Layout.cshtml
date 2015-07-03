@@ -36,6 +36,18 @@
                     </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="dLabelLang" data-target="#" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Language
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabelLang">
+                            <li><a href="javascript:void(0)" class="lang" lang="en-gb"><img class="flag-icon" src="/content/images/icon-british-flag.jpg" /> English</a></li>
+                            <li><a href="javascript:void(0)" class="lang" lang="th-th"><img class="flag-icon" src="/content/images/icon-thai-flag.gif" /> Thai</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -62,6 +74,10 @@
                     $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
                     $(this).toggleClass('open');
                     $('b', this).toggleClass("caret caret-up");
+            });
+
+            $(".lang").click(function () {
+                window.location.href = window.location.href.replace("en-gb", $(this).attr("lang")).replace("th-th", $(this).attr("lang"));
             });
         });
     </script>

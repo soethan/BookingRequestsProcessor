@@ -43,3 +43,7 @@ footer{
 .pager{
     float:right;
 }
+.flag-icon{
+    width:20px;
+    height:15px;
+}
