@@ -25,13 +25,13 @@
                     <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
                     <li class="dropdown">
                         <a id="dLabel" data-target="#" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Bookings
+                            @Text.Menu_Bookings
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dLabel">
-                            <li>@Html.ActionLink("Process Booking Requests", "Index", "BookingRequest")</li>
-                            <li>@Html.ActionLink("View Booking Requests", "CheckStatus", "BookingRequest")</li>
-                            <li>@Html.ActionLink("View Call Center KPI", "ViewKpi", "BookingRequest")</li>
+                            <li>@Html.ActionLink(Text.Menu_ProcessBookingRequests, "Index", "BookingRequest")</li>
+                            <li>@Html.ActionLink(Text.Menu_ViewBookingRequests, "CheckStatus", "BookingRequest")</li>
+                            <li>@Html.ActionLink(Text.Menu_ViewCallCenterKpi, "ViewKpi", "BookingRequest")</li>
                         </ul>
                     </li>
                 </ul>

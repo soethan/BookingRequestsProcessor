@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Booking.Models.BookingRequest>
+﻿@using BackOfficeWeb.Resources
+@model IEnumerable<Booking.Models.BookingRequest>
 @using Booking.Models
 @{
     ViewBag.Title = "Index";
@@ -6,7 +7,7 @@
     var statistics = ViewData["statistics"] as BookingStatisticsModel;
 }
 <div class="wrapper">
-    <h4>View Booking Requests</h4>
+    <h4>@Text.PageTitle_ViewBookingRequests</h4>
     <div class="form-horizontal">
         <div class="form-group">
             @if (statistics != null)

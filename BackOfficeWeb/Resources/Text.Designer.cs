@@ -29,7 +29,7 @@ namespace BackOfficeWeb.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Text() {
+        internal Text() {
         }
         
         /// <summary>
@@ -66,6 +66,402 @@ namespace BackOfficeWeb.Resources {
         public static string Global_ApplicationName {
             get {
                 return ResourceManager.GetString("Global_ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attended By.
+        /// </summary>
+        public static string Label_AttendedBy {
+            get {
+                return ResourceManager.GetString("Label_AttendedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attended Date.
+        /// </summary>
+        public static string Label_AttendedDate {
+            get {
+                return ResourceManager.GetString("Label_AttendedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        public static string Label_CreatedDate {
+            get {
+                return ResourceManager.GetString("Label_CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address 1.
+        /// </summary>
+        public static string Label_PickUpAddress1 {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddress1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address 2.
+        /// </summary>
+        public static string Label_PickUpAddress2 {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddress2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address City.
+        /// </summary>
+        public static string Label_PickUpAddressCity {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddressCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address Country.
+        /// </summary>
+        public static string Label_PickUpAddressCountry {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddressCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address Postal.
+        /// </summary>
+        public static string Label_PickUpAddressPostal {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddressPostal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Address Province.
+        /// </summary>
+        public static string Label_PickUpAddressProvince {
+            get {
+                return ResourceManager.GetString("Label_PickUpAddressProvince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Latitue.
+        /// </summary>
+        public static string Label_PickUpLatitue {
+            get {
+                return ResourceManager.GetString("Label_PickUpLatitue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick-up Longitute.
+        /// </summary>
+        public static string Label_PickUpLongitute {
+            get {
+                return ResourceManager.GetString("Label_PickUpLongitute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipient Desk Phone No.
+        /// </summary>
+        public static string Label_RecipientDeskPhoneNo {
+            get {
+                return ResourceManager.GetString("Label_RecipientDeskPhoneNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipient Email.
+        /// </summary>
+        public static string Label_RecipientEmail {
+            get {
+                return ResourceManager.GetString("Label_RecipientEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipient First Name.
+        /// </summary>
+        public static string Label_RecipientFirstName {
+            get {
+                return ResourceManager.GetString("Label_RecipientFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipient Last Name.
+        /// </summary>
+        public static string Label_RecipientLastName {
+            get {
+                return ResourceManager.GetString("Label_RecipientLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipient Mobile No.
+        /// </summary>
+        public static string Label_RecipientMobilePhoneNo {
+            get {
+                return ResourceManager.GetString("Label_RecipientMobilePhoneNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remarks.
+        /// </summary>
+        public static string Label_Remarks {
+            get {
+                return ResourceManager.GetString("Label_Remarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply Message.
+        /// </summary>
+        public static string Label_ReplyMessage {
+            get {
+                return ResourceManager.GetString("Label_ReplyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Number.
+        /// </summary>
+        public static string Label_RequestNumber {
+            get {
+                return ResourceManager.GetString("Label_RequestNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor Desk Phone No.
+        /// </summary>
+        public static string Label_RequestorDeskPhoneNo {
+            get {
+                return ResourceManager.GetString("Label_RequestorDeskPhoneNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor Email.
+        /// </summary>
+        public static string Label_RequestorEmail {
+            get {
+                return ResourceManager.GetString("Label_RequestorEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor First Name.
+        /// </summary>
+        public static string Label_RequestorFirstName {
+            get {
+                return ResourceManager.GetString("Label_RequestorFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor Id.
+        /// </summary>
+        public static string Label_RequestorId {
+            get {
+                return ResourceManager.GetString("Label_RequestorId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor Last Name.
+        /// </summary>
+        public static string Label_RequestorLastName {
+            get {
+                return ResourceManager.GetString("Label_RequestorLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requestor Mobile No.
+        /// </summary>
+        public static string Label_RequestorMobilePhoneNo {
+            get {
+                return ResourceManager.GetString("Label_RequestorMobilePhoneNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Type.
+        /// </summary>
+        public static string Label_RequestType {
+            get {
+                return ResourceManager.GetString("Label_RequestType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address 1.
+        /// </summary>
+        public static string Label_SendToAddress1 {
+            get {
+                return ResourceManager.GetString("Label_SendToAddress1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address 2.
+        /// </summary>
+        public static string Label_SendToAddress2 {
+            get {
+                return ResourceManager.GetString("Label_SendToAddress2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address City.
+        /// </summary>
+        public static string Label_SendToAddressCity {
+            get {
+                return ResourceManager.GetString("Label_SendToAddressCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address Country.
+        /// </summary>
+        public static string Label_SendToAddressCountry {
+            get {
+                return ResourceManager.GetString("Label_SendToAddressCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address Postal.
+        /// </summary>
+        public static string Label_SendToAddressPostal {
+            get {
+                return ResourceManager.GetString("Label_SendToAddressPostal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address Province.
+        /// </summary>
+        public static string Label_SendToAddressProvince {
+            get {
+                return ResourceManager.GetString("Label_SendToAddressProvince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Latitue.
+        /// </summary>
+        public static string Label_SendToLatitue {
+            get {
+                return ResourceManager.GetString("Label_SendToLatitue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Longitute.
+        /// </summary>
+        public static string Label_SendToLongitute {
+            get {
+                return ResourceManager.GetString("Label_SendToLongitute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Label_Status {
+            get {
+                return ResourceManager.GetString("Label_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to Booking Requests.
+        /// </summary>
+        public static string Link_BackToBookingRequests {
+            get {
+                return ResourceManager.GetString("Link_BackToBookingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookings.
+        /// </summary>
+        public static string Menu_Bookings {
+            get {
+                return ResourceManager.GetString("Menu_Bookings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process Booking Requests.
+        /// </summary>
+        public static string Menu_ProcessBookingRequests {
+            get {
+                return ResourceManager.GetString("Menu_ProcessBookingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Booking Requests.
+        /// </summary>
+        public static string Menu_ViewBookingRequests {
+            get {
+                return ResourceManager.GetString("Menu_ViewBookingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Call Center KPI.
+        /// </summary>
+        public static string Menu_ViewCallCenterKpi {
+            get {
+                return ResourceManager.GetString("Menu_ViewCallCenterKpi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Booking Request Details.
+        /// </summary>
+        public static string PageTitle_BookingRequestDetails {
+            get {
+                return ResourceManager.GetString("PageTitle_BookingRequestDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process Booking Requests.
+        /// </summary>
+        public static string PageTitle_ProcessBookingRequests {
+            get {
+                return ResourceManager.GetString("PageTitle_ProcessBookingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Booking Requests.
+        /// </summary>
+        public static string PageTitle_ViewBookingRequests {
+            get {
+                return ResourceManager.GetString("PageTitle_ViewBookingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Call Center KPI.
+        /// </summary>
+        public static string PageTitle_ViewCallCenterKpi {
+            get {
+                return ResourceManager.GetString("PageTitle_ViewCallCenterKpi", resourceCulture);
             }
         }
     }

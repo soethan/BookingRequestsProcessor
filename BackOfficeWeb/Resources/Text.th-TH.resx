@@ -120,4 +120,136 @@
   <data name="Global_ApplicationName" xml:space="preserve">
     <value>อัลฟา BackOffice เว็บ</value>
   </data>
+  <data name="Label_AttendedBy" xml:space="preserve">
+    <value>เข้าร่วมโดย</value>
+  </data>
+  <data name="Label_AttendedDate" xml:space="preserve">
+    <value>วันที่เข้าร่วม</value>
+  </data>
+  <data name="Label_CreatedDate" xml:space="preserve">
+    <value>วันที่สร้าง</value>
+  </data>
+  <data name="Label_PickUpAddress1" xml:space="preserve">
+    <value>ที่อยู่ Pick-up 1</value>
+  </data>
+  <data name="Label_PickUpAddress2" xml:space="preserve">
+    <value>ที่อยู่ Pick-up 2</value>
+  </data>
+  <data name="Label_PickUpAddressCity" xml:space="preserve">
+    <value>Pick-up ที่อยู่เมือง</value>
+  </data>
+  <data name="Label_PickUpAddressCountry" xml:space="preserve">
+    <value>Pick-up ที่อยู่ประเทศ</value>
+  </data>
+  <data name="Label_PickUpAddressPostal" xml:space="preserve">
+    <value>Pick-up ที่อยู่ทางไปรษณีย์</value>
+  </data>
+  <data name="Label_PickUpAddressProvince" xml:space="preserve">
+    <value>รถรับส่งจากจังหวัดที่อยู่</value>
+  </data>
+  <data name="Label_PickUpLatitue" xml:space="preserve">
+    <value>Pick-up Latitue</value>
+  </data>
+  <data name="Label_PickUpLongitute" xml:space="preserve">
+    <value>Pick-up ลองจิจูด</value>
+  </data>
+  <data name="Label_RecipientDeskPhoneNo" xml:space="preserve">
+    <value>โต๊ะผู้รับโทรศัพท์ไม่มี</value>
+  </data>
+  <data name="Label_RecipientEmail" xml:space="preserve">
+    <value>อีเมล์ผู้รับ</value>
+  </data>
+  <data name="Label_RecipientFirstName" xml:space="preserve">
+    <value>ผู้รับชื่อ</value>
+  </data>
+  <data name="Label_RecipientLastName" xml:space="preserve">
+    <value>ผู้รับนามสกุล</value>
+  </data>
+  <data name="Label_RecipientMobilePhoneNo" xml:space="preserve">
+    <value>มือถือไม่มีผู้รับ</value>
+  </data>
+  <data name="Label_Remarks" xml:space="preserve">
+    <value>ข้อคิดเห็น</value>
+  </data>
+  <data name="Label_ReplyMessage" xml:space="preserve">
+    <value>ข้อความตอบกลับ</value>
+  </data>
+  <data name="Label_RequestNumber" xml:space="preserve">
+    <value>ขอจำนวน</value>
+  </data>
+  <data name="Label_RequestorDeskPhoneNo" xml:space="preserve">
+    <value>ร้องขอโต๊ะโทรศัพท์ไม่มี</value>
+  </data>
+  <data name="Label_RequestorEmail" xml:space="preserve">
+    <value>อีเมล์ร้องขอ</value>
+  </data>
+  <data name="Label_RequestorFirstName" xml:space="preserve">
+    <value>ร้องขอชื่อ</value>
+  </data>
+  <data name="Label_RequestorId" xml:space="preserve">
+    <value>หมายเลขผู้ขอ</value>
+  </data>
+  <data name="Label_RequestorLastName" xml:space="preserve">
+    <value>ร้องขอนามสกุล</value>
+  </data>
+  <data name="Label_RequestorMobilePhoneNo" xml:space="preserve">
+    <value>ร้องขอมือถือไม่มี</value>
+  </data>
+  <data name="Label_RequestType" xml:space="preserve">
+    <value>ขอประเภท</value>
+  </data>
+  <data name="Label_SendToAddress1" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่ 1</value>
+  </data>
+  <data name="Label_SendToAddress2" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่ 2</value>
+  </data>
+  <data name="Label_SendToAddressCity" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่เมือง</value>
+  </data>
+  <data name="Label_SendToAddressCountry" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่ประเทศ</value>
+  </data>
+  <data name="Label_SendToAddressPostal" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่ไปรษณีย์</value>
+  </data>
+  <data name="Label_SendToAddressProvince" xml:space="preserve">
+    <value>ส่งไปยังที่อยู่จังหวัด</value>
+  </data>
+  <data name="Label_SendToLatitue" xml:space="preserve">
+    <value>ส่งให้ Latitue</value>
+  </data>
+  <data name="Label_SendToLongitute" xml:space="preserve">
+    <value>ส่งไปยังลองจิจูด</value>
+  </data>
+  <data name="Label_Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="Link_BackToBookingRequests" xml:space="preserve">
+    <value>กลับไปขอจองห้องพัก</value>
+  </data>
+  <data name="Menu_Bookings" xml:space="preserve">
+    <value>การจอง</value>
+  </data>
+  <data name="Menu_ProcessBookingRequests" xml:space="preserve">
+    <value>ขั้นตอนการขอจองห้องพัก</value>
+  </data>
+  <data name="Menu_ViewBookingRequests" xml:space="preserve">
+    <value>ดูการขอจองห้องพัก</value>
+  </data>
+  <data name="Menu_ViewCallCenterKpi" xml:space="preserve">
+    <value>ดู Call Center KPI</value>
+  </data>
+  <data name="PageTitle_BookingRequestDetails" xml:space="preserve">
+    <value>ขอรายละเอียดการจองห้องพัก</value>
+  </data>
+  <data name="PageTitle_ProcessBookingRequests" xml:space="preserve">
+    <value>ขั้นตอนการขอจองห้องพัก</value>
+  </data>
+  <data name="PageTitle_ViewBookingRequests" xml:space="preserve">
+    <value>ดูการขอจองห้องพัก</value>
+  </data>
+  <data name="PageTitle_ViewCallCenterKpi" xml:space="preserve">
+    <value>ดู Call Center KPI</value>
+  </data>
 </root>

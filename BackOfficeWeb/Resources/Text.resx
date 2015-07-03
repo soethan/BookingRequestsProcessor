@@ -120,4 +120,136 @@
   <data name="Global_ApplicationName" xml:space="preserve">
     <value>Alpha BackOffice Web</value>
   </data>
+  <data name="Label_AttendedBy" xml:space="preserve">
+    <value>Attended By</value>
+  </data>
+  <data name="Label_AttendedDate" xml:space="preserve">
+    <value>Attended Date</value>
+  </data>
+  <data name="Label_CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Label_PickUpAddress1" xml:space="preserve">
+    <value>Pick-up Address 1</value>
+  </data>
+  <data name="Label_PickUpAddress2" xml:space="preserve">
+    <value>Pick-up Address 2</value>
+  </data>
+  <data name="Label_PickUpAddressCity" xml:space="preserve">
+    <value>Pick-up Address City</value>
+  </data>
+  <data name="Label_PickUpAddressCountry" xml:space="preserve">
+    <value>Pick-up Address Country</value>
+  </data>
+  <data name="Label_PickUpAddressPostal" xml:space="preserve">
+    <value>Pick-up Address Postal</value>
+  </data>
+  <data name="Label_PickUpAddressProvince" xml:space="preserve">
+    <value>Pick-up Address Province</value>
+  </data>
+  <data name="Label_PickUpLatitue" xml:space="preserve">
+    <value>Pick-up Latitue</value>
+  </data>
+  <data name="Label_PickUpLongitute" xml:space="preserve">
+    <value>Pick-up Longitute</value>
+  </data>
+  <data name="Label_RecipientDeskPhoneNo" xml:space="preserve">
+    <value>Recipient Desk Phone No</value>
+  </data>
+  <data name="Label_RecipientEmail" xml:space="preserve">
+    <value>Recipient Email</value>
+  </data>
+  <data name="Label_RecipientFirstName" xml:space="preserve">
+    <value>Recipient First Name</value>
+  </data>
+  <data name="Label_RecipientLastName" xml:space="preserve">
+    <value>Recipient Last Name</value>
+  </data>
+  <data name="Label_RecipientMobilePhoneNo" xml:space="preserve">
+    <value>Recipient Mobile No</value>
+  </data>
+  <data name="Label_Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="Label_ReplyMessage" xml:space="preserve">
+    <value>Reply Message</value>
+  </data>
+  <data name="Label_RequestNumber" xml:space="preserve">
+    <value>Request Number</value>
+  </data>
+  <data name="Label_RequestorDeskPhoneNo" xml:space="preserve">
+    <value>Requestor Desk Phone No</value>
+  </data>
+  <data name="Label_RequestorEmail" xml:space="preserve">
+    <value>Requestor Email</value>
+  </data>
+  <data name="Label_RequestorFirstName" xml:space="preserve">
+    <value>Requestor First Name</value>
+  </data>
+  <data name="Label_RequestorId" xml:space="preserve">
+    <value>Requestor Id</value>
+  </data>
+  <data name="Label_RequestorLastName" xml:space="preserve">
+    <value>Requestor Last Name</value>
+  </data>
+  <data name="Label_RequestorMobilePhoneNo" xml:space="preserve">
+    <value>Requestor Mobile No</value>
+  </data>
+  <data name="Label_RequestType" xml:space="preserve">
+    <value>Request Type</value>
+  </data>
+  <data name="Label_SendToAddress1" xml:space="preserve">
+    <value>Send To Address 1</value>
+  </data>
+  <data name="Label_SendToAddress2" xml:space="preserve">
+    <value>Send To Address 2</value>
+  </data>
+  <data name="Label_SendToAddressCity" xml:space="preserve">
+    <value>Send To Address City</value>
+  </data>
+  <data name="Label_SendToAddressCountry" xml:space="preserve">
+    <value>Send To Address Country</value>
+  </data>
+  <data name="Label_SendToAddressPostal" xml:space="preserve">
+    <value>Send To Address Postal</value>
+  </data>
+  <data name="Label_SendToAddressProvince" xml:space="preserve">
+    <value>Send To Address Province</value>
+  </data>
+  <data name="Label_SendToLatitue" xml:space="preserve">
+    <value>Send To Latitue</value>
+  </data>
+  <data name="Label_SendToLongitute" xml:space="preserve">
+    <value>Send To Longitute</value>
+  </data>
+  <data name="Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Link_BackToBookingRequests" xml:space="preserve">
+    <value>Back to Booking Requests</value>
+  </data>
+  <data name="Menu_Bookings" xml:space="preserve">
+    <value>Bookings</value>
+  </data>
+  <data name="Menu_ProcessBookingRequests" xml:space="preserve">
+    <value>Process Booking Requests</value>
+  </data>
+  <data name="Menu_ViewBookingRequests" xml:space="preserve">
+    <value>View Booking Requests</value>
+  </data>
+  <data name="Menu_ViewCallCenterKpi" xml:space="preserve">
+    <value>View Call Center KPI</value>
+  </data>
+  <data name="PageTitle_BookingRequestDetails" xml:space="preserve">
+    <value>Booking Request Details</value>
+  </data>
+  <data name="PageTitle_ProcessBookingRequests" xml:space="preserve">
+    <value>Process Booking Requests</value>
+  </data>
+  <data name="PageTitle_ViewBookingRequests" xml:space="preserve">
+    <value>View Booking Requests</value>
+  </data>
+  <data name="PageTitle_ViewCallCenterKpi" xml:space="preserve">
+    <value>View Call Center KPI</value>
+  </data>
 </root>

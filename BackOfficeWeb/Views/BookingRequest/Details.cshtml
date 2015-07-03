@@ -1,10 +1,11 @@
-﻿@model BackOfficeWeb.Models.UpdateStatusViewModel
+﻿@using BackOfficeWeb.Resources
+@model BackOfficeWeb.Models.UpdateStatusViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="wrapper">
-    <h4>BookingRequest Details</h4>
+    <h4>@Text.PageTitle_BookingRequestDetails</h4>
     @if (ViewBag.ErrorMessage != null)
     {
         <h6>@ViewBag.ErrorMessage</h6>
@@ -12,13 +13,13 @@
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestNumber)
+                @Text.Label_RequestNumber
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestNumber)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorId)
+                @Text.Label_RequestorId
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorId)
@@ -26,13 +27,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorFirstName)
+                @Text.Label_RequestorFirstName
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorFirstName)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorLastName)
+                @Text.Label_RequestorLastName
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorLastName)
@@ -40,13 +41,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorMobilePhoneNo)
+               @Text.Label_RequestorMobilePhoneNo
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorMobilePhoneNo)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorDeskPhoneNo)
+                @Text.Label_RequestorDeskPhoneNo
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorDeskPhoneNo)
@@ -54,13 +55,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RequestorEmail)
+                @Text.Label_RequestorEmail
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RequestorEmail)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddress1)
+                @Text.Label_PickUpAddress1
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddress1)
@@ -68,13 +69,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddress2)
+                @Text.Label_PickUpAddress2
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddress2)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddressCity)
+                @Text.Label_PickUpAddressCity
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddressCity)
@@ -82,13 +83,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddressProvince)
+                @Text.Label_PickUpAddressProvince
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddressProvince)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddressPostal)
+                @Text.Label_PickUpAddressPostal
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddressPostal)
@@ -96,13 +97,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpAddressCountry)
+                @Text.Label_PickUpAddressCountry
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpAddressCountry)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpLatitue)
+                @Text.Label_PickUpLatitue
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpLatitue)
@@ -110,13 +111,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.PickUpLongitute)
+                @Text.Label_PickUpLongitute
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.PickUpLongitute)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RecipientFirstName)
+                @Text.Label_RecipientFirstName
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RecipientFirstName)
@@ -124,13 +125,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RecipientLastName)
+                @Text.Label_RecipientLastName
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RecipientLastName)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RecipientMobilePhoneNo)
+                @Text.Label_RecipientMobilePhoneNo
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RecipientMobilePhoneNo)
@@ -138,13 +139,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RecipientDeskPhoneNo)
+                @Text.Label_RecipientDeskPhoneNo
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RecipientDeskPhoneNo)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.RecipientEmail)
+                @Text.Label_RecipientEmail
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.RecipientEmail)
@@ -152,13 +153,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddress1)
+                @Text.Label_SendToAddress1
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddress1)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddress2)
+                @Text.Label_SendToAddress2
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddress2)
@@ -166,13 +167,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddressCity)
+                @Text.Label_SendToAddressCity
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddressCity)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddressProvince)
+                @Text.Label_SendToAddressProvince
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddressProvince)
@@ -180,13 +181,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddressPostal)
+                @Text.Label_SendToAddressPostal
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddressPostal)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToAddressCountry)
+                @Text.Label_SendToAddressCountry
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToAddressCountry)
@@ -194,13 +195,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToLatitue)
+                @Text.Label_SendToLatitue
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToLatitue)
             </div>
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.SendToLongitute)
+                @Text.Label_SendToLongitute
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.SendToLongitute)
@@ -208,13 +209,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                CreatedDate
+                @Text.Label_CreatedDate
             </div>
             <div class="col-md-3">
                 @Model.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
             </div>
             <div class="col-md-2">
-                AttendedDate
+                @Text.Label_AttendedDate
             </div>
             <div class="col-md-3">
                 @if(Model.UpdatedDate.HasValue)
@@ -225,13 +226,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.Remarks)
+                @Text.Label_Remarks
             </div>
             <div class="col-md-3">
                 @Html.DisplayFor(model => model.Remarks)
             </div>
             <div class="col-md-2">
-                AttendedBy
+                @Text.Label_AttendedBy
             </div>
             <div class="col-md-3">
                 @Model.UpdatedBy
@@ -244,7 +245,7 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <div class="col-md-2">
-                        Request Type
+                        @Text.Label_RequestType
                     </div>
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.Status,
@@ -260,7 +261,7 @@
                 </div>
                 <div class="form-group" id="divReplyMessage" style="display:none">
                     <div class="col-md-2">
-                        Reply Message
+                        @Text.Label_ReplyMessage
                     </div>
                     <div class="col-md-10">
                         @Html.TextAreaFor(model => model.ReplyMessage, new { id = "txtReplyMessage", style = "display:none" })
@@ -279,7 +280,7 @@
         {
             <div class="form-group">
                 <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Text.Label_Status
                 </div>
                 <div class="col-md-10">
                     <span class="@Model.Status.ToLower()">@Html.DisplayFor(model => model.Status)</span>
@@ -289,7 +290,7 @@
 
     </div>
     <p>
-        @Html.ActionLink("Back to Booking Requests", ViewBag.Process != null && ViewBag.Process == true ? "Index" : "CheckStatus")
+        @Html.ActionLink(Text.Link_BackToBookingRequests, ViewBag.Process != null && ViewBag.Process == true ? "Index" : "CheckStatus")
     </p>
 </div>
     
