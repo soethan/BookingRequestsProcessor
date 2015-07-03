@@ -45,4 +45,14 @@
             </tr>
         }
     </table>
+    @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#pager").change(function () {
+                window.location.href = '@Url.Action("ViewKpi", "BookingRequest")' + '?page=' + $(this).val();
+            });
+        });
+    </script>
+}

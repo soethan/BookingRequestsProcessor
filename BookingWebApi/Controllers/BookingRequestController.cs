@@ -67,8 +67,10 @@ namespace BookingWebApi.Controllers
                                 .Skip(Constants.PAGE_SIZE * page)
                                 .Take(Constants.PAGE_SIZE);
 
-            return Request.CreateResponse(HttpStatusCode.OK,
-                new BookingListModel { BookingRequests = pagedQuery.ToList(), TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) });
+            return Request.CreateResponse(HttpStatusCode.OK, new BookingListModel { 
+                BookingRequests = pagedQuery.ToList(), 
+                TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) 
+            });
         }
 
         public HttpResponseMessage GetPendingBookingRequests(int page = 0)
@@ -82,8 +84,33 @@ namespace BookingWebApi.Controllers
                                 .Skip(Constants.PAGE_SIZE * page)
                                 .Take(Constants.PAGE_SIZE);
 
-             return Request.CreateResponse(HttpStatusCode.OK,
-                new BookingListModel { BookingRequests = pagedQuery.ToList(), TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) });
+            return Request.CreateResponse(HttpStatusCode.OK, new BookingListModel { 
+                BookingRequests = pagedQuery.ToList(), 
+                TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) 
+            });
+        }
+
+        public HttpResponseMessage GetBookingProcessKpi(int page = 0)
+        {
+            var query = _bookingRequestRepository
+                            .GetAll()
+                            .Where(b => b.Status.Equals(Constants.BOOKING_STATUS_ENQUIRY) || b.Status.Equals(Constants.BOOKING_STATUS_CONFIRMED))
+                            .OrderBy(b => b.CreatedDate);
+
+            var pagedQuery = query
+                                .Skip(Constants.PAGE_SIZE * page)
+                                .Take(Constants.PAGE_SIZE)
+                                .Select(b => new BookingRequestKpiModel { 
+                                    RequestNumber = b.RequestNumber, 
+                                    CreatedDate = b.CreatedDate, 
+                                    AttendedDate = b.UpdatedDate.Value, 
+                                    AttendedBy = b.UpdatedBy 
+                                });
+            
+            return Request.CreateResponse(HttpStatusCode.OK, new BookingRequestKpiListModel { 
+                BookingRequestKpis = pagedQuery.ToList(), 
+                TotalPages = (int)Math.Ceiling((double)query.Count() / Constants.PAGE_SIZE) 
+            });
         }
 
         public HttpResponseMessage GetStatistics()
@@ -156,17 +183,5 @@ namespace BookingWebApi.Controllers
 
             _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { ConfigurationManager.AppSettings["DeliveryOfficeEmail"] }, string.Format("Parcel Pickup-RequestNo-{0}", bookingRequest.RequestNumber), content.ToString());
         }
-
-        public IEnumerable<BookingRequestKpiModel> GetBookingProcessKpi(int page = 0)
-        {
-            var list = _bookingRequestRepository.GetAll()
-                    .Where(b => b.Status.Equals(Constants.BOOKING_STATUS_ENQUIRY) || b.Status.Equals(Constants.BOOKING_STATUS_CONFIRMED))
-                    .OrderBy(b => b.CreatedDate)
-                    .Skip(Constants.PAGE_SIZE * page)
-                    .Take(Constants.PAGE_SIZE)
-                    .Select(b => new BookingRequestKpiModel { RequestNumber = b.RequestNumber, CreatedDate = b.CreatedDate, AttendedDate = b.UpdatedDate.Value, AttendedBy = b.UpdatedBy }).ToList();
-            return list;
-        }
-
     }
 }

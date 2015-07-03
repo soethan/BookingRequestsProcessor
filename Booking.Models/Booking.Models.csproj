@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BookingListModel.cs" />
     <Compile Include="BookingRequest.cs" />
+    <Compile Include="BookingRequestKpiListModel.cs" />
     <Compile Include="BookingRequestKpiModel.cs" />
     <Compile Include="BookingStatisticsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

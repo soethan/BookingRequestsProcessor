@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Booking.Models.BookingRequest>
+@using Booking.Models
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var statistics = ViewData["statistics"] as Booking.Models.BookingStatisticsModel;
+    var statistics = ViewData["statistics"] as BookingStatisticsModel;
 }
 <div class="wrapper">
     <h4>View Booking Requests</h4>

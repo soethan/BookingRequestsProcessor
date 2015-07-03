@@ -58,6 +58,17 @@ namespace BackOfficeWeb.Controllers
             return View(result.BookingRequests);
         }
 
+        public ActionResult ViewKpi(int page = 0)
+        {
+            bool success;
+            var response = _webHelper.GetResponse(string.Format("{0}/GetBookingProcessKpi?page={1}", ConfigurationManager.AppSettings["BookingWebApiUrl"], page), string.Empty, "GET", "text/json", out success);
+            var result = JsonConvert.DeserializeObject<BookingRequestKpiListModel>(response);
+
+            SetPagingModel(page, result.TotalPages);
+
+            return View(result.BookingRequestKpis);
+        }
+
         private void SetPagingModel(int currentPage, int totalPages)
         {
             ViewBag.PagingModel = new PagingModel
@@ -75,16 +86,7 @@ namespace BackOfficeWeb.Controllers
 
             return statistics;
         }
-
-        public ActionResult ViewKpi()
-        {
-            bool success;
-            var response = _webHelper.GetResponse(string.Format("{0}/GetBookingProcessKpi", ConfigurationManager.AppSettings["BookingWebApiUrl"]), string.Empty, "GET", "text/json", out success);
-            var list = JsonConvert.DeserializeObject<List<BookingRequestKpiModel>>(response);
-
-            return View(list);
-        }
-
+        
         public ActionResult Details(string id, bool process = false)
         {
             if (id == null)
