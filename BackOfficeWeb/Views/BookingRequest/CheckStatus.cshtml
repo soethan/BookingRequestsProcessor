@@ -22,13 +22,13 @@
                 </div>
             }
             <div class="col-md-12">
-                Status @Html.DropDownList("Status", new List<SelectListItem> {
+                @Text.Label_Status @Html.DropDownList("Status", new List<SelectListItem> {
                                             new SelectListItem { Text = "All", Value = "" },
                                             new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
                                             new SelectListItem { Text = "Enquiry", Value = "Enquiry" } ,
                                             new SelectListItem { Text = "Pending", Value = "Pending" } },
-                                            new { htmlAttributes = new { @class = "form-control" } })
-                <input type="button" id="btnSearch" value="Search" />
+                                            new { @class = "selectpicker" })
+                <input type="button" class="btn btn-primary" id="btnSearch" value="Search" />
             </div>
         </div>
     </div>
@@ -120,6 +120,8 @@
         $("#pager").change(function () {
             window.location.href = '@Url.Action("CheckStatus", "BookingRequest")' + "?status=" + $("#Status").val() + '&page=' + $(this).val();
         });
+
+        $('.selectpicker').selectpicker();
     });
     </script>
 }
