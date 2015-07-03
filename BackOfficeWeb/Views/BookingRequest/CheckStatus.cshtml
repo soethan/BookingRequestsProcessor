@@ -9,14 +9,17 @@
     <h4>View Booking Requests</h4>
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-12">
-                <div class="col-md-6"><b>No of Genuine Bookings: </b>@statistics.NumberOfBookings</div>
-                <div class="col-md-6"><b>Percentage of Bookings: </b>@statistics.PercentageOfBookings</div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6"><b>No of Enquiries: </b>@statistics.NumberOfEnquiries</div>
-                <div class="col-md-6"><b>Percentage of Enquiries: </b>@statistics.PercentageOfEnquiries</div>
-            </div>
+            @if (statistics != null)
+            {
+                <div class="col-md-12">
+                    <div class="col-md-6"><b>No of Genuine Bookings: </b>@statistics.NumberOfBookings</div>
+                    <div class="col-md-6"><b>Percentage of Bookings: </b>@statistics.PercentageOfBookings</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6"><b>No of Enquiries: </b>@statistics.NumberOfEnquiries</div>
+                    <div class="col-md-6"><b>Percentage of Enquiries: </b>@statistics.PercentageOfEnquiries</div>
+                </div>
+            }
             <div class="col-md-12">
                 Status @Html.DropDownList("Status", new List<SelectListItem> {
                                             new SelectListItem { Text = "All", Value = "" },
@@ -56,41 +59,54 @@
             </th>
             <th></th>
         </tr>
-
-        @foreach (var item in Model)
+        @if (Model == null)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestorId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestorFirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestorLastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestorEmail)
-                </td>
-                <td class="@item.Status.ToLower()">
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.RequestNumber })
+                <td colspan="9" style="text-align:center">
+                    No record(s) found.
                 </td>
             </tr>
         }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestorId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestorFirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestorLastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestorMobilePhoneNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestorEmail)
+                    </td>
+                    <td class="@item.Status.ToLower()">
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.RequestNumber })
+                    </td>
+                </tr>
+            }
+        }
     </table>
-    @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
+    @if (Model != null)
+    {
+        @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
+    }
 </div>
 
 @section Scripts {

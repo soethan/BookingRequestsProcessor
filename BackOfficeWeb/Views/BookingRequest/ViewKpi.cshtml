@@ -23,29 +23,42 @@
                 @Html.DisplayNameFor(model => model.AttendedDate)
             </th>
         </tr>
-
-        @foreach (var item in Model)
+        @if (Model == null)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AttendedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeTaken)
-                </td>
-                <td>
-                    @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
-                </td>
-                <td>
-                    @item.AttendedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                <td colspan="5" style="text-align:center">
+                    No record(s) found.
                 </td>
             </tr>
         }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AttendedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeTaken)
+                    </td>
+                    <td>
+                        @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                    </td>
+                    <td>
+                        @item.AttendedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                    </td>
+                </tr>
+            }
+        }
     </table>
-    @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
+    @if (Model != null)
+    {
+        @Html.Partial("_PagingPartial", ViewBag.PagingModel as BackOfficeWeb.Models.PagingModel)
+    }
 </div>
 @section scripts{
     <script>
