@@ -12,7 +12,7 @@ namespace DataAccessLayer
     public class BookingRequestsDbContext: DbContext
     {
         public BookingRequestsDbContext()
-            : base("name=DefaultConnection")
+            : base("name=BookingRequestsDbConnection")
         {
 
         }
