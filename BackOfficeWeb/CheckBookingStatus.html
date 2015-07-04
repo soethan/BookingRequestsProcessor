@@ -2,14 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <link href="/Content/css/bootstrap.css" rel="stylesheet" />
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script>
         $(function () {
             $("#btnSearch").click(function () {
-                //$.getJSON("http://localhost:60394/api/bookingrequest/getbookingrequest/" + $("#txtRequestNumber").val(), function (result) {
-                //    $("#result").html(result.status);
-                //});
-
                 $.ajax({
                     url: "http://localhost:60394/api/bookingrequest/getbookingrequest/" + $("#txtRequestNumber").val(),
                     beforeSend: function (xhr) {
@@ -18,8 +15,17 @@
                     datatype : 'JSON',
                     type : 'GET',
                     contentType: "application/json",
-                    success : function(data){
-                        $("#result").html(data.status);
+                    success: function (data) {
+                        var result = [];
+                        result.push("RequestNumber: " + data.requestNumber);
+                        result.push("RequestorId: " + data.requestorId);
+                        result.push("RequestorFirstName: " + data.requestorFirstName);
+                        result.push("RequestorLastName: " + data.requestorLastName);
+                        result.push("RequestorMobilePhoneNo: " + data.requestorMobilePhoneNo);
+                        result.push("RequestorDeskPhoneNo: " + data.requestorDeskPhoneNo);
+                        result.push("RequestorEmail: " + data.requestorEmail);
+                        result.push("Status: " + data.status);
+                        $("#result").html(result.join("<br/>"));
                     },
                     error: function (data) {
                         $("#result").html(data.responseJSON.message);
@@ -32,7 +38,18 @@
     </script>
 </head>
 <body>
-    <div>Request Number: <input type="text" id="txtRequestNumber" /> <input type="button" id="btnSearch" value="Search" /></div>
-    <div id="result"></div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-2"><b>Request Number: </b></div>
+                <div class="col-md-10"><input type="text" id="txtRequestNumber" /> <input type="button" class="btn btn-primary" id="btnSearch" value="Search" /></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
