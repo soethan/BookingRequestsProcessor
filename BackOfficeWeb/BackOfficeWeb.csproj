@@ -206,8 +206,10 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\icon-british-flag.jpg" />
     <Content Include="Content\images\icon-thai-flag.gif" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
