@@ -48,7 +48,7 @@ namespace BookingWebApi.Filters
         {
             _log.Info("Unauthorized access");
             actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-            actionContext.Response.Headers.Add("WWW-Authenticate", "Basic Scheme='blog' location='http://localhost/account/login'");
+            actionContext.Response.Headers.Add("WWW-Authenticate", "Basic Scheme='alpha' location='http://localhost/account/login'");
         }
     }
 }
