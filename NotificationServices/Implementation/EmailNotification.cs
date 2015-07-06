@@ -13,7 +13,7 @@ namespace NotificationServices.Implementation
     {
         public void Send(string sender, List<string> receiver, string subject, string content)
         {
-            File.WriteAllText(ConfigurationManager.AppSettings["EmailFolder"] + subject + "-" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".txt", content);
+            File.WriteAllText(ConfigurationManager.AppSettings["EmailFolder"] + subject + "-" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".html", content);
         }
     }
 }

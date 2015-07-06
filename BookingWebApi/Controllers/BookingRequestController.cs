@@ -17,6 +17,7 @@ using Booking.Models;
 using System.Text;
 using NotificationServices.Interfaces;
 using System.Configuration;
+using System.IO;
 
 namespace BookingWebApi.Controllers
 {
@@ -175,16 +176,14 @@ namespace BookingWebApi.Controllers
 
         private void SendEmailForEnquiry(string replyMessage, BookingRequest bookingRequest)
         {
-            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { bookingRequest.RequestorEmail }, string.Format("Enquiry-RequestNo-{0}", bookingRequest.RequestNumber), replyMessage);
+            var content = string.Format(File.ReadAllText(ConfigurationManager.AppSettings["EmailTemplate"] + "Enquiry.html", Encoding.Unicode), bookingRequest.RequestNumber, bookingRequest.RequestorFirstName, replyMessage);
+            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { bookingRequest.RequestorEmail }, string.Format("Enquiry-RequestNo-{0}", bookingRequest.RequestNumber), content);
         }
 
         private void SendEmailToDeliveryOffice(BookingRequest bookingRequest)
         {
-            var content = new StringBuilder();
-            content.Append(string.Format("RequestNumber:{0}<br/>", bookingRequest.RequestNumber));
-            content.Append(string.Format("Pickup Location:{0},{1},{2},{3},{4},{5}<br/>", bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince));
-
-            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { ConfigurationManager.AppSettings["DeliveryOfficeEmail"] }, string.Format("Parcel Pickup-RequestNo-{0}", bookingRequest.RequestNumber), content.ToString());
+            var content = string.Format(File.ReadAllText(ConfigurationManager.AppSettings["EmailTemplate"] + "ParcelPickup.html", Encoding.Unicode), bookingRequest.RequestNumber, bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince, bookingRequest.PickUpLatitue, bookingRequest.PickUpLongitute);
+            _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { ConfigurationManager.AppSettings["DeliveryOfficeEmail"] }, string.Format("Parcel Pickup-RequestNo-{0}", bookingRequest.RequestNumber), content);
         }
     }
 }

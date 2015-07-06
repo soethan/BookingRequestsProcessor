@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Parcel Pickup(Request No: {0})</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>	<!-- Google Maps API -->
+    <script>
+	var map;
+
+	function Init()
+	{{
+	    var location = new google.maps.LatLng({7}, {8});
+	    var mapOptions = {{ zoom: 12, center: location  }};
+	    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	    var marker = new google.maps.Marker({{
+	        position: location,
+	        map: map,
+	        title: 'Hello World!'
+	    }});
+	}}
+
+    </script>
+    <style>
+        #map-canvas {{
+            width: 500px; 
+            height: 500px; 
+        }}
+    </style>
+</head>
+<body onload="Init()">
+    Please pick up the parcel (Request No: {0}) at the following location<br />
+    Pickup Location:{1},{2},{3},{4},{5},{6}<br />
+    <div id='map-canvas'></div>
+</body>
+</html>
