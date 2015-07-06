@@ -115,16 +115,19 @@ namespace BookingWebApi.Controllers
 
         public HttpResponseMessage GetStatistics()
         {
-            var totalBookings = _bookingRequestRepository.GetAll().Count();
-
+            var totalRecords = _bookingRequestRepository.GetAll().Count();
+            if (totalRecords == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new BookingStatisticsModel());
+            }
             var numberOfBookings = _bookingRequestRepository.GetAll()
                         .Count(b => b.Status == Constants.BOOKING_STATUS_CONFIRMED);
 
             var numberOfEnquiries = _bookingRequestRepository.GetAll()
                         .Count(b => b.Status == Constants.BOOKING_STATUS_ENQUIRY);
 
-            int percentageOfBookings = Convert.ToInt32(((decimal)numberOfBookings / totalBookings) * 100);
-            int percentageOfEnquiries = Convert.ToInt32(((decimal)numberOfEnquiries / totalBookings) * 100);
+            int percentageOfBookings = Convert.ToInt32(((decimal)numberOfBookings / totalRecords) * 100);
+            int percentageOfEnquiries = Convert.ToInt32(((decimal)numberOfEnquiries / totalRecords) * 100);
 
             var statistics = new BookingStatisticsModel { 
                 NumberOfBookings = numberOfBookings,
