@@ -26,8 +26,12 @@ namespace BookingWebApi.Filters
         }
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            if (actionContext.Request.RequestUri.AbsolutePath == "/api/bookingrequest/getstatusupdate")
+            {
+                return;
+            }
             var authHeader = actionContext.Request.Headers.Authorization;
-
+            
             if (authHeader != null)
             {
                 if (authHeader.Scheme.Equals("basic", StringComparison.CurrentCultureIgnoreCase) &&

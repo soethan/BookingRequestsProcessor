@@ -28,7 +28,7 @@ textarea {
 footer{
     text-align:center
 }
-.pending{
+.pending,.processing{
     color: #0026ff;
     font-weight:bold;
 }

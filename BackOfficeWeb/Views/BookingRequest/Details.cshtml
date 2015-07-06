@@ -253,7 +253,7 @@
                                                     new SelectListItem { Text = "Please select new status", Value = "" },
                                                     new SelectListItem { Text = "Confirmed", Value = "Confirmed" },
                                                     new SelectListItem { Text = "Enquiry", Value = "Enquiry" } },
-                                                    new { id = "ddlStatus", @class = "selectpicker" })
+                                                    new { id = "ddlStatus", @class = "form-control" })
 
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -271,7 +271,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         @Html.HiddenFor(model => model.RequestNumber)
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" id="btnSave" value="Save" class="btn btn-primary" />
                     </div>
                 </div>
             }
@@ -305,6 +305,27 @@
                 }
                 else {
                     $("#divReplyMessage,#txtReplyMessage").hide();
+                }
+            });
+
+            var uri = 'ws://' + "localhost:60394/api/bookingrequest/getstatusupdate";
+            var websocket = new WebSocket(uri);
+
+            websocket.onopen = function () {
+
+            };
+
+            websocket.onerror = function (event) {
+                alert("WebSocket error");
+            };
+
+            websocket.onmessage = function (event) {
+
+            };
+
+            $("#btnSave").click(function () {
+                if ($("#ddlStatus").val() != '') {
+                    websocket.send('@Model.RequestNumber' + "_" + $("#ddlStatus").val());
                 }
             });
         });

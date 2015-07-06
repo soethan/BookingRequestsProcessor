@@ -65,15 +65,15 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.RequestorEmail)
                     </td>
-                    <td class="@item.Status.ToLower()">
+                    <td id="@(string.Format("status{0}", item.RequestNumber))" class="@item.Status.ToLower()">
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
                         @item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
                     </td>
                     <td>
-                        @Html.ActionLink("Process", "Details", new { id = item.RequestNumber, process = true })
-                    </td>
+                        <a href="javascript:void(0)" id="@item.RequestNumber" data-reqno-and-status="@(string.Format("{0}_Processing", item.RequestNumber))" class="processing">Process</a>
+                     </td>
                 </tr>
             }
         }
@@ -88,6 +88,28 @@
         $(function () {
             $("#pager").change(function () {
                 window.location.href = '@Url.Action("Index", "BookingRequest")' + '?page=' + $(this).val();
+            });
+
+            var uri = 'ws://' + "localhost:60394/api/bookingrequest/getstatusupdate";
+            var websocket = new WebSocket(uri);
+
+            websocket.onopen = function () {
+                
+            };
+
+            websocket.onerror = function (event) {
+                alert("WebSocket error");
+            };
+
+            websocket.onmessage = function (event) {
+                var arr = event.data.split('_');
+                $("#status" + arr[0]).html(arr[1]).removeClass().addClass(arr[1].toLowerCase());
+            };
+
+            $('.processing').click(function (event) {
+                websocket.send($(this).attr("data-reqno-and-status"));
+                event.preventDefault();
+                window.location.href = '@Url.Action("Details", "BookingRequest")' + "?id=" + $(this).attr("id") + "&process=true";
             });
         });
     </script>    

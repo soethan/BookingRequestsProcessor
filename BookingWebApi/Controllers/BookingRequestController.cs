@@ -18,6 +18,8 @@ using System.Text;
 using NotificationServices.Interfaces;
 using System.Configuration;
 using System.IO;
+using Microsoft.Web.WebSockets;
+using System.Web;
 
 namespace BookingWebApi.Controllers
 {
@@ -184,6 +186,34 @@ namespace BookingWebApi.Controllers
         {
             var content = string.Format(File.ReadAllText(ConfigurationManager.AppSettings["EmailTemplate"] + "ParcelPickup.html", Encoding.Unicode), bookingRequest.RequestNumber, bookingRequest.PickUpAddress1, bookingRequest.PickUpAddress2, bookingRequest.PickUpAddressCity, bookingRequest.PickUpAddressCountry, bookingRequest.PickUpAddressPostal, bookingRequest.PickUpAddressProvince, bookingRequest.PickUpLatitue, bookingRequest.PickUpLongitute);
             _emailNotification.Send(ConfigurationManager.AppSettings["BackEndEmail"], new List<string> { ConfigurationManager.AppSettings["DeliveryOfficeEmail"] }, string.Format("Parcel Pickup-RequestNo-{0}", bookingRequest.RequestNumber), content);
+        }
+
+        [AllowAnonymous]
+        public HttpResponseMessage GetStatusUpdate()
+        {
+            HttpContext.Current.AcceptWebSocketRequest(new StatusWebSocketHandler("StatusUpdateEvent"));
+            return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
+        }
+    }
+
+    class StatusWebSocketHandler : WebSocketHandler
+    {
+        private static WebSocketCollection _clients = new WebSocketCollection();
+        private string _eventName;
+
+        public StatusWebSocketHandler(string eventName)
+        {
+            _eventName = eventName;
+        }
+
+        public override void OnOpen()
+        {
+            _clients.Add(this);
+        }
+
+        public override void OnMessage(string requestNumberAndStatus)
+        {
+            _clients.Broadcast(requestNumberAndStatus);
         }
     }
 }
